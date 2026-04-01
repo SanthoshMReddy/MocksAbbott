@@ -1,0 +1,263 @@
+---
+layout: base.njk
+title: Retailer Onboarding
+navActive: /02-retailer-onboarding.html
+permalink: /02-retailer-onboarding.html
+---
+{% block headStyles %}
+<style>
+.kyc-stage { display: flex; align-items: center; gap: 4px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="page-header">
+        <h1>Retailer Onboarding</h1>
+        <a href="#" class="btn btn-primary">
+            <span class="material-icons-outlined">send</span> Send KYC Invites
+        </a>
+    </div>
+
+    <!-- Search -->
+    <div class="content-search">
+        <span class="material-icons-outlined">search</span>
+        <input type="text" placeholder="Search by retailer name, GSTIN, or phone number...">
+    </div>
+
+    <!-- Filter Pills -->
+    <div class="filter-pills">
+        <span class="filter-pill active">All (60,072)</span>
+        <span class="filter-pill">Verified (52,014)</span>
+        <span class="filter-pill">Pending KYC (4,216)</span>
+        <span class="filter-pill">Failed (1,842)</span>
+        <span class="filter-pill">Manual Review (1,200)</span>
+        <span class="filter-pill">Not Started (800)</span>
+    </div>
+
+    <!-- Data Table -->
+    <div class="section-card">
+        <div class="table-scroll-wrapper">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Retailer Name</th>
+                    <th>GSTIN</th>
+                    <th>Phone</th>
+                    <th>City</th>
+                    <th>KYC Status</th>
+                    <th>Verification Stage</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight:600">Sharma Medical Store</td>
+                    <td style="font-family:monospace;font-size:0.82rem">27AABCU9603R1ZP</td>
+                    <td>+91 98201 45678</td>
+                    <td>Mumbai</td>
+                    <td><span class="badge green">Verified</span></td>
+                    <td>
+                        <div class="pipeline-dots">
+                            <span class="dot done g"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done g"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done g"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done g"></span>
+                        </div>
+                    </td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">visibility</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Patel Pharma</td>
+                    <td style="font-family:monospace;font-size:0.82rem">24BHJPP4127K1ZI</td>
+                    <td>+91 97124 32100</td>
+                    <td>Ahmedabad</td>
+                    <td><span class="badge green">Verified</span></td>
+                    <td>
+                        <div class="pipeline-dots">
+                            <span class="dot done g"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done g"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done g"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done g"></span>
+                        </div>
+                    </td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">visibility</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Singh Drug House</td>
+                    <td style="font-family:monospace;font-size:0.82rem">06CCKPS8421M1ZR</td>
+                    <td>+91 98765 43210</td>
+                    <td>Chandigarh</td>
+                    <td><span class="badge yellow">Pending KYC</span></td>
+                    <td>
+                        <div class="pipeline-dots">
+                            <span class="dot done b"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done b"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot active b"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">visibility</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Gupta Health Mart</td>
+                    <td style="font-family:monospace;font-size:0.82rem">09AADCG7612P1ZK</td>
+                    <td>+91 88001 23456</td>
+                    <td>Lucknow</td>
+                    <td><span class="badge yellow">Pending KYC</span></td>
+                    <td>
+                        <div class="pipeline-dots">
+                            <span class="dot done b"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot active b"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">visibility</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Reddy Medicals</td>
+                    <td style="font-family:monospace;font-size:0.82rem">36AABCR2341H1Z5</td>
+                    <td>+91 90001 78900</td>
+                    <td>Hyderabad</td>
+                    <td><span class="badge red">Failed</span></td>
+                    <td>
+                        <div class="pipeline-dots">
+                            <span class="dot done b"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done b"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot" style="border-color:var(--error);background:var(--error)"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">visibility</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Jain Medical Agencies</td>
+                    <td style="font-family:monospace;font-size:0.82rem">23AABCJ5432K1ZT</td>
+                    <td>+91 77001 56789</td>
+                    <td>Bhopal</td>
+                    <td><span class="badge purple">Manual Review</span></td>
+                    <td>
+                        <div class="pipeline-dots">
+                            <span class="dot done p"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done p"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot active p"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">visibility</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Deshmukh Pharmacy</td>
+                    <td style="font-family:monospace;font-size:0.82rem">27AABCD8901L1ZH</td>
+                    <td>+91 99201 67890</td>
+                    <td>Pune</td>
+                    <td><span class="badge green">Verified</span></td>
+                    <td>
+                        <div class="pipeline-dots">
+                            <span class="dot done g"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done g"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done g"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done g"></span>
+                        </div>
+                    </td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">visibility</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Banerjee Chemists</td>
+                    <td style="font-family:monospace;font-size:0.82rem">19AABCB1234N1ZQ</td>
+                    <td>+91 98301 45600</td>
+                    <td>Kolkata</td>
+                    <td><span class="badge grey">Not Started</span></td>
+                    <td>
+                        <div class="pipeline-dots">
+                            <span class="dot"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">visibility</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Nair Drug Store</td>
+                    <td style="font-family:monospace;font-size:0.82rem">32AABCN7654M1ZJ</td>
+                    <td>+91 94001 23456</td>
+                    <td>Kochi</td>
+                    <td><span class="badge green">Verified</span></td>
+                    <td>
+                        <div class="pipeline-dots">
+                            <span class="dot done g"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done g"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done g"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot done g"></span>
+                        </div>
+                    </td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">visibility</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Verma Healthcare</td>
+                    <td style="font-family:monospace;font-size:0.82rem">07AABCV3456K1ZW</td>
+                    <td>+91 98100 78901</td>
+                    <td>New Delhi</td>
+                    <td><span class="badge yellow">Pending KYC</span></td>
+                    <td>
+                        <div class="pipeline-dots">
+                            <span class="dot done b"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot active b"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot"></span>
+                            <span class="dot-line"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">visibility</span></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <div class="pagination-info">Showing 1-10 of 60,072 retailers</div>
+            <div class="pagination-buttons">
+                <button class="page-btn nav-btn"><span class="material-icons-outlined">chevron_left</span> Prev</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <span class="page-ellipsis">...</span>
+                <button class="page-btn">6008</button>
+                <button class="page-btn nav-btn">Next <span class="material-icons-outlined">chevron_right</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,197 @@
+---
+layout: base.njk
+title: Batch Detail
+navActive: /04-batch-detail.html
+permalink: /04-batch-detail.html
+---
+{% block headStyles %}
+<style>
+.batch-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.batch-header h1 { margin-right: auto; }
+.batch-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
+.batch-meta-item { font-size: 0.85rem; color: var(--text-secondary); }
+.batch-meta-item strong { color: var(--text-primary); font-weight: 600; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="batch-header">
+        <a href="/03-payout-batches.html" style="color:var(--text-secondary);text-decoration:none">
+            <span class="material-icons-outlined" style="font-size:20px;vertical-align:middle">arrow_back</span>
+        </a>
+        <h1>BTH-2026-0387</h1>
+        <span class="badge green">Completed</span>
+        <button class="btn btn-outline btn-sm">
+            <span class="material-icons-outlined">download</span> Export
+        </button>
+    </div>
+
+    <div class="batch-meta">
+        <div class="batch-meta-item"><strong>Upload Date:</strong> 28 Mar 2026</div>
+        <div class="batch-meta-item"><strong>Uploaded By:</strong> Abhijeet Anand</div>
+        <div class="batch-meta-item"><strong>Completed:</strong> 28 Mar 2026, 14:32</div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+        <div class="summary-card mint">
+            <span class="card-icon material-icons-outlined">check_circle</span>
+            <div class="card-label">Valid Payouts</div>
+            <div class="card-number">1,218</div>
+            <div class="card-sub">of 1,240 rows</div>
+        </div>
+        <div class="summary-card blue">
+            <span class="card-icon material-icons-outlined">currency_rupee</span>
+            <div class="card-label">Gross Amount</div>
+            <div class="card-number">&#8377;9,36,000</div>
+            <div class="card-sub">Avg &#8377;769 per payout</div>
+        </div>
+        <div class="summary-card yellow">
+            <span class="card-icon material-icons-outlined">receipt_long</span>
+            <div class="card-label">TDS Deducted</div>
+            <div class="card-number">&#8377;93,600</div>
+            <div class="card-sub">10% under Sec 194R</div>
+        </div>
+        <div class="summary-card pink">
+            <span class="card-icon material-icons-outlined">payments</span>
+            <div class="card-label">Net Transferred</div>
+            <div class="card-number">&#8377;8,42,400</div>
+            <div class="card-sub">via IMPS</div>
+        </div>
+    </div>
+
+    <!-- Filter Pills -->
+    <div class="filter-pills">
+        <span class="filter-pill active">All (1,240)</span>
+        <span class="filter-pill">Success (1,198)</span>
+        <span class="filter-pill">OTP Pending (12)</span>
+        <span class="filter-pill">Processing (8)</span>
+        <span class="filter-pill">Error (22)</span>
+    </div>
+
+    <!-- Payout Line Items -->
+    <div class="section-card">
+        <div class="table-scroll-wrapper">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Retailer</th>
+                    <th>Amount</th>
+                    <th>TDS</th>
+                    <th>Net</th>
+                    <th>OTP Status</th>
+                    <th>IMPS Status</th>
+                    <th>Bank Ref</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight:600">Sharma Medical Store</td>
+                    <td>&#8377;1,200</td>
+                    <td>&#8377;120</td>
+                    <td>&#8377;1,080</td>
+                    <td><span class="badge green">Verified</span></td>
+                    <td><span class="badge green">Success</span></td>
+                    <td style="font-family:monospace;font-size:0.82rem">IMPS408712345678</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Patel Pharma</td>
+                    <td>&#8377;800</td>
+                    <td>&#8377;80</td>
+                    <td>&#8377;720</td>
+                    <td><span class="badge green">Verified</span></td>
+                    <td><span class="badge green">Success</span></td>
+                    <td style="font-family:monospace;font-size:0.82rem">IMPS408723456789</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Deshmukh Pharmacy</td>
+                    <td>&#8377;1,500</td>
+                    <td>&#8377;150</td>
+                    <td>&#8377;1,350</td>
+                    <td><span class="badge green">Verified</span></td>
+                    <td><span class="badge green">Success</span></td>
+                    <td style="font-family:monospace;font-size:0.82rem">IMPS408734567890</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Nair Drug Store</td>
+                    <td>&#8377;600</td>
+                    <td>&#8377;60</td>
+                    <td>&#8377;540</td>
+                    <td><span class="badge yellow">Pending</span></td>
+                    <td><span class="badge grey">Waiting</span></td>
+                    <td>--</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Verma Healthcare</td>
+                    <td>&#8377;950</td>
+                    <td>&#8377;95</td>
+                    <td>&#8377;855</td>
+                    <td><span class="badge green">Verified</span></td>
+                    <td><span class="badge blue">Processing</span></td>
+                    <td>--</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Singh Drug House</td>
+                    <td>&#8377;700</td>
+                    <td>&#8377;70</td>
+                    <td>&#8377;630</td>
+                    <td><span class="badge green">Verified</span></td>
+                    <td><span class="badge green">Success</span></td>
+                    <td style="font-family:monospace;font-size:0.82rem">IMPS408756789012</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Gupta Health Mart</td>
+                    <td>&#8377;500</td>
+                    <td>&#8377;50</td>
+                    <td>&#8377;450</td>
+                    <td><span class="badge red">Expired</span></td>
+                    <td><span class="badge red">Failed</span></td>
+                    <td>--</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Jain Medical Agencies</td>
+                    <td>&#8377;1,100</td>
+                    <td>&#8377;110</td>
+                    <td>&#8377;990</td>
+                    <td><span class="badge green">Verified</span></td>
+                    <td><span class="badge green">Success</span></td>
+                    <td style="font-family:monospace;font-size:0.82rem">IMPS408767890123</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Banerjee Chemists</td>
+                    <td>&#8377;850</td>
+                    <td>&#8377;85</td>
+                    <td>&#8377;765</td>
+                    <td><span class="badge green">Verified</span></td>
+                    <td><span class="badge red">Failed</span></td>
+                    <td>--</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">Reddy Medicals</td>
+                    <td>&#8377;400</td>
+                    <td>&#8377;0</td>
+                    <td>&#8377;400</td>
+                    <td><span class="badge green">Verified</span></td>
+                    <td><span class="badge green">Success</span></td>
+                    <td style="font-family:monospace;font-size:0.82rem">IMPS408778901234</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <div class="pagination">
+            <div class="pagination-info">Showing 1-10 of 1,240 payouts</div>
+            <div class="pagination-buttons">
+                <button class="page-btn nav-btn"><span class="material-icons-outlined">chevron_left</span> Prev</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <span class="page-ellipsis">...</span>
+                <button class="page-btn">124</button>
+                <button class="page-btn nav-btn">Next <span class="material-icons-outlined">chevron_right</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

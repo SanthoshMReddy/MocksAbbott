@@ -1,0 +1,305 @@
+---
+layout: base.njk
+title: Settings
+navActive: /08-settings.html
+permalink: /08-settings.html
+---
+{% block headStyles %}
+<style>
+.settings-layout { display: grid; grid-template-columns: 220px 1fr; gap: 24px; }
+
+.settings-tabs { background: var(--white); border-radius: 12px; border: 1px solid #E5E7EB; padding: 12px 0; height: fit-content; }
+.settings-tab {
+    display: flex; align-items: center; gap: 10px; padding: 12px 20px;
+    font-size: 0.88rem; font-weight: 500; color: var(--text-secondary);
+    cursor: pointer; transition: all 0.15s; border-left: 3px solid transparent;
+}
+.settings-tab:hover { background: #F9FAFB; color: var(--text-primary); }
+.settings-tab.active { border-left-color: var(--blue); background: var(--blue-light); color: var(--blue); font-weight: 600; }
+.settings-tab .material-icons-outlined { font-size: 20px; }
+
+.settings-panel { background: var(--white); border-radius: 12px; border: 1px solid #E5E7EB; padding: 28px; }
+.settings-panel h2 { margin-bottom: 8px; }
+.settings-panel .panel-desc { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 24px; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-group { margin-bottom: 18px; }
+.form-group label {
+    display: block; font-size: 0.82rem; font-weight: 600;
+    color: var(--text-secondary); margin-bottom: 6px;
+}
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 10px 14px; border: 1px solid var(--grey);
+    border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem;
+    background: var(--white); color: var(--text-primary);
+}
+.form-group .help-text { font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px; }
+
+.form-divider { height: 1px; background: #E5E7EB; margin: 24px 0; }
+
+.toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #F3F4F6; }
+.toggle-row:last-child { border-bottom: none; }
+.toggle-label { font-weight: 500; font-size: 0.9rem; }
+.toggle-desc { font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px; }
+.toggle-switch {
+    width: 44px; height: 24px; border-radius: 12px; background: var(--grey);
+    position: relative; cursor: pointer; transition: background 0.2s;
+}
+.toggle-switch.on { background: var(--blue); }
+.toggle-switch::after {
+    content: ''; position: absolute; top: 2px; left: 2px;
+    width: 20px; height: 20px; border-radius: 50%; background: var(--white);
+    transition: left 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle-switch.on::after { left: 22px; }
+
+@media (max-width: 768px) {
+    .settings-layout { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="page-header">
+        <h1>Settings</h1>
+        <button class="btn btn-primary">
+            <span class="material-icons-outlined">save</span> Save Changes
+        </button>
+    </div>
+
+    <div class="settings-layout">
+        <!-- Left: Tabs -->
+        <div class="settings-tabs">
+            <div class="settings-tab active" onclick="switchSettingsTab('kyc')">
+                <span class="material-icons-outlined">verified_user</span> KYC Config
+            </div>
+            <div class="settings-tab" onclick="switchSettingsTab('tds')">
+                <span class="material-icons-outlined">receipt_long</span> TDS Config
+            </div>
+            <div class="settings-tab" onclick="switchSettingsTab('payout')">
+                <span class="material-icons-outlined">payments</span> Payout Config
+            </div>
+            <div class="settings-tab" onclick="switchSettingsTab('wallet')">
+                <span class="material-icons-outlined">account_balance_wallet</span> Wallet Config
+            </div>
+            <div class="settings-tab" onclick="switchSettingsTab('notifications')">
+                <span class="material-icons-outlined">notifications</span> Notifications
+            </div>
+        </div>
+
+        <!-- Right: Panel -->
+        <div>
+            <!-- KYC Config Panel -->
+            <div class="settings-panel" id="panel-kyc">
+                <h2>KYC Configuration</h2>
+                <p class="panel-desc">Configure retailer verification settings for the Abbott Engage program.</p>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Entity Name Match Threshold (%)</label>
+                        <input type="number" value="85" min="50" max="100">
+                        <div class="help-text">Auto-approve if name match score is above this threshold</div>
+                    </div>
+                    <div class="form-group">
+                        <label>KYC Link Expiry (hours)</label>
+                        <input type="number" value="72">
+                        <div class="help-text">Retailer KYC link expires after this duration</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Maximum KYC Retries</label>
+                        <input type="number" value="3">
+                        <div class="help-text">Number of attempts before manual review required</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Verification Provider</label>
+                        <select>
+                            <option selected>DigiLocker API</option>
+                            <option>GSTN Portal Direct</option>
+                            <option>Custom Integration</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-divider"></div>
+                <h3 style="margin-bottom:16px">Verification Toggles</h3>
+
+                <div class="toggle-row">
+                    <div>
+                        <div class="toggle-label">GSTIN Verification</div>
+                        <div class="toggle-desc">Verify retailer GSTIN against GST portal</div>
+                    </div>
+                    <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                </div>
+                <div class="toggle-row">
+                    <div>
+                        <div class="toggle-label">Bank Account Verification</div>
+                        <div class="toggle-desc">Verify bank account via penny drop</div>
+                    </div>
+                    <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                </div>
+                <div class="toggle-row">
+                    <div>
+                        <div class="toggle-label">PAN Verification</div>
+                        <div class="toggle-desc">Cross-verify PAN with GSTIN records</div>
+                    </div>
+                    <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                </div>
+                <div class="toggle-row">
+                    <div>
+                        <div class="toggle-label">Cancelled Cheque Required</div>
+                        <div class="toggle-desc">Require cancelled cheque upload for bank verification</div>
+                    </div>
+                    <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
+                </div>
+            </div>
+
+            <!-- TDS Config Panel (hidden) -->
+            <div class="settings-panel" id="panel-tds" style="display:none">
+                <h2>TDS Configuration</h2>
+                <p class="panel-desc">Tax Deducted at Source settings under Section 194R of the Income Tax Act.</p>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>TDS Section</label>
+                        <select>
+                            <option selected>194R - Benefits/Perquisites (Business)</option>
+                            <option>194R - Alternate</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Annual Threshold (&#8377;)</label>
+                        <input type="number" value="15000">
+                        <div class="help-text">TDS applicable when cumulative payout exceeds this amount per FY</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Default TDS Rate (%)</label>
+                        <input type="number" value="10" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label>TDS Rate - No PAN (%)</label>
+                        <input type="number" value="20" step="0.1">
+                        <div class="help-text">Higher rate applied when retailer PAN is unavailable</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payout Config Panel (hidden) -->
+            <div class="settings-panel" id="panel-payout" style="display:none">
+                <h2>Payout Configuration</h2>
+                <p class="panel-desc">Settings for retailer reward payout processing via IMPS.</p>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>OTP Expiry (minutes)</label>
+                        <input type="number" value="10">
+                    </div>
+                    <div class="form-group">
+                        <label>Maximum OTP Retries</label>
+                        <input type="number" value="3">
+                    </div>
+                    <div class="form-group">
+                        <label>Payout Link Expiry (hours)</label>
+                        <input type="number" value="48">
+                        <div class="help-text">Retailer must claim payout within this window</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Maximum Batch Size (rows)</label>
+                        <input type="number" value="10000">
+                    </div>
+                    <div class="form-group">
+                        <label>IMPS Transfer Mode</label>
+                        <select>
+                            <option selected>IMPS (Instant)</option>
+                            <option>NEFT (Batch)</option>
+                            <option>UPI</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Auto-Retry Failed Transfers</label>
+                        <select>
+                            <option selected>Yes (up to 2 retries)</option>
+                            <option>No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wallet Config Panel (hidden) -->
+            <div class="settings-panel" id="panel-wallet" style="display:none">
+                <h2>Wallet Configuration</h2>
+                <p class="panel-desc">Prefunded wallet balance alerts and funding settings.</p>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Low Balance Alert Threshold (&#8377;)</label>
+                        <input type="number" value="500000">
+                        <div class="help-text">Send alert when wallet balance drops below this amount</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Critical Balance Threshold (&#8377;)</label>
+                        <input type="number" value="100000">
+                        <div class="help-text">Block new payouts when balance drops below this amount</div>
+                    </div>
+                </div>
+
+                <div class="form-divider"></div>
+                <h3 style="margin-bottom:16px">Alert Recipients</h3>
+                <div class="form-group">
+                    <label>Email Addresses (comma separated)</label>
+                    <input type="text" value="abhijeet.anand@abbott.com, finance.team@abbott.com">
+                </div>
+                <div class="toggle-row">
+                    <div>
+                        <div class="toggle-label">SMS Alerts</div>
+                        <div class="toggle-desc">Send SMS to program manager on low balance</div>
+                    </div>
+                    <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                </div>
+                <div class="toggle-row">
+                    <div>
+                        <div class="toggle-label">Daily Balance Summary</div>
+                        <div class="toggle-desc">Email daily wallet balance report at 9:00 AM</div>
+                    </div>
+                    <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                </div>
+            </div>
+
+            <!-- Notifications Panel (hidden) -->
+            <div class="settings-panel" id="panel-notifications" style="display:none">
+                <h2>Notification Templates</h2>
+                <p class="panel-desc">Customize SMS and email templates sent to retailers and program managers.</p>
+
+                <div class="form-group">
+                    <label>KYC Invitation SMS</label>
+                    <textarea rows="3">Dear {retailer_name}, Abbott India invites you to complete KYC for the reward program. Click {kyc_link} to verify. Valid for {expiry_hours}hrs.</textarea>
+                </div>
+                <div class="form-group">
+                    <label>OTP Message</label>
+                    <textarea rows="3">Your OTP for Abbott reward payout of Rs.{amount} is {otp}. Valid for {expiry_min} minutes. Do not share.</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Payout Confirmation SMS</label>
+                    <textarea rows="3">Rs.{net_amount} credited to your bank a/c ending {bank_last4} from Abbott India Rewards. Ref: {imps_ref}. TDS Rs.{tds_amount} deducted.</textarea>
+                </div>
+                <div class="form-group">
+                    <label>Batch Completion Email (Program Manager)</label>
+                    <textarea rows="3">Batch {batch_id} completed. {success_count}/{total_count} payouts successful. Net transferred: Rs.{net_amount}. TDS deducted: Rs.{tds_amount}. {failed_count} failures require attention.</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function switchSettingsTab(name) {
+    document.querySelectorAll('.settings-tab').forEach(function(el) { el.classList.remove('active'); });
+    document.querySelectorAll('.settings-panel').forEach(function(el) { el.style.display = 'none'; });
+    event.currentTarget.classList.add('active');
+    document.getElementById('panel-' + name).style.display = 'block';
+}
+</script>
+{% endblock %}

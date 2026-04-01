@@ -1,0 +1,28 @@
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <svg width="34" height="34" viewBox="{{ theme.logo.viewBox }}" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {{ theme.logo.svg | safe }}
+    </svg>
+    <div class="sidebar-brand">{{ theme.brand.name }}<small>{{ theme.brand.subtitle }}</small></div>
+  </div>
+  <div class="sidebar-nav">
+    {%- for item in theme.nav %}
+    {%- if item.type == "divider" %}
+    <div class="nav-divider"></div>
+    {%- else %}
+    <a href="{{ item.href }}" class="nav-item{% if item.href == navActive %} active{% endif %}">
+      <span class="material-icons-outlined">{{ item.icon }}</span> {{ item.label }}
+      {%- if item.badge %}
+      <span class="nav-badge">{{ item.badge }}</span>
+      {%- endif %}
+    </a>
+    {%- endif %}
+    {%- endfor %}
+  </div>
+  <div class="sidebar-footer">
+    <a href="/" class="nav-item">
+      <span class="material-icons-outlined">home</span> Mockup Hub
+    </a>
+  </div>
+</nav>
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>

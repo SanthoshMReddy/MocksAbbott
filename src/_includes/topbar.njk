@@ -1,0 +1,28 @@
+{%- set u = pageUser if pageUser else user -%}
+<header class="topbar">
+  <button class="hamburger-btn" onclick="toggleSidebar()">
+    <span class="material-icons-outlined">menu</span>
+  </button>
+  <div class="topbar-left">
+    <div class="topbar-search">
+      <span class="material-icons-outlined">search</span>
+      <input type="text" placeholder="Search retailers, batches, payouts...">
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="topbar-icon">
+      <span class="material-icons-outlined">notifications_none</span>
+      <span class="notif-dot"></span>
+    </div>
+    <div class="topbar-icon">
+      <span class="material-icons-outlined">help_outline</span>
+    </div>
+    <div class="topbar-user">
+      <div class="avatar">{{ u.initials }}</div>
+      <div>
+        <div class="topbar-name">{{ u.name }}</div>
+        <div class="topbar-role">{{ u.role }}</div>
+      </div>
+    </div>
+  </div>
+</header>

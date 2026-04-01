@@ -1,0 +1,177 @@
+---
+layout: base.njk
+title: Payout Batches
+navActive: /03-payout-batches.html
+permalink: /03-payout-batches.html
+---
+{% block headStyles %}
+<style>
+.upload-zone {
+    border: 2px dashed var(--grey);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    margin-bottom: 24px;
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.upload-zone:hover { border-color: var(--blue); background: var(--blue-light); }
+.upload-zone .material-icons-outlined { font-size: 40px; color: var(--blue); margin-bottom: 8px; }
+.upload-zone h4 { margin-bottom: 4px; }
+.upload-zone p { font-size: 0.82rem; color: var(--text-secondary); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="page-header">
+        <h1>Payout Batches</h1>
+        <button class="btn btn-primary" onclick="document.getElementById('uploadZone').style.display=document.getElementById('uploadZone').style.display==='none'?'block':'none'">
+            <span class="material-icons-outlined">upload_file</span> Upload CSV
+        </button>
+    </div>
+
+    <!-- Upload Zone (toggled) -->
+    <div id="uploadZone" class="upload-zone" style="display:none">
+        <span class="material-icons-outlined">cloud_upload</span>
+        <h4>Drop your payout CSV here</h4>
+        <p>Supported format: CSV with columns Retailer ID, Amount, Reward Type. Max 10,000 rows per batch.</p>
+    </div>
+
+    <!-- Filter Pills -->
+    <div class="filter-pills">
+        <span class="filter-pill active">All Batches</span>
+        <span class="filter-pill">Uploaded</span>
+        <span class="filter-pill">Validating</span>
+        <span class="filter-pill">Processing</span>
+        <span class="filter-pill">Completed</span>
+        <span class="filter-pill">Failed</span>
+    </div>
+
+    <!-- Data Table -->
+    <div class="section-card">
+        <div class="table-scroll-wrapper">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Batch ID</th>
+                    <th>Date</th>
+                    <th>Total Rows</th>
+                    <th>Valid / Error</th>
+                    <th>Gross Amount</th>
+                    <th>TDS</th>
+                    <th>Net Amount</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr onclick="window.location='/04-batch-detail.html'">
+                    <td style="font-weight:600">BTH-2026-0387</td>
+                    <td>28 Mar 2026</td>
+                    <td>1,240</td>
+                    <td>1,218 / 22</td>
+                    <td>&#8377;9,36,000</td>
+                    <td>&#8377;93,600</td>
+                    <td>&#8377;8,42,400</td>
+                    <td><span class="badge green">Completed</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                </tr>
+                <tr onclick="window.location='/04-batch-detail.html'">
+                    <td style="font-weight:600">BTH-2026-0386</td>
+                    <td>25 Mar 2026</td>
+                    <td>980</td>
+                    <td>975 / 5</td>
+                    <td>&#8377;6,24,000</td>
+                    <td>&#8377;62,400</td>
+                    <td>&#8377;5,61,600</td>
+                    <td><span class="badge green">Completed</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                </tr>
+                <tr onclick="window.location='/04-batch-detail.html'">
+                    <td style="font-weight:600">BTH-2026-0385</td>
+                    <td>22 Mar 2026</td>
+                    <td>1,450</td>
+                    <td>1,432 / 18</td>
+                    <td>&#8377;10,20,000</td>
+                    <td>&#8377;1,02,000</td>
+                    <td>&#8377;9,18,000</td>
+                    <td><span class="badge blue">Processing</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                </tr>
+                <tr onclick="window.location='/04-batch-detail.html'">
+                    <td style="font-weight:600">BTH-2026-0384</td>
+                    <td>20 Mar 2026</td>
+                    <td>640</td>
+                    <td>-- / --</td>
+                    <td>&#8377;4,48,000</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td><span class="badge yellow">Validating</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">BTH-2026-0383</td>
+                    <td>18 Mar 2026</td>
+                    <td>85</td>
+                    <td>0 / 85</td>
+                    <td>&#8377;59,500</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td><span class="badge red">Failed</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                </tr>
+                <tr onclick="window.location='/04-batch-detail.html'">
+                    <td style="font-weight:600">BTH-2026-0382</td>
+                    <td>15 Mar 2026</td>
+                    <td>2,100</td>
+                    <td>2,089 / 11</td>
+                    <td>&#8377;14,70,000</td>
+                    <td>&#8377;1,47,000</td>
+                    <td>&#8377;13,23,000</td>
+                    <td><span class="badge green">Completed</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                </tr>
+                <tr onclick="window.location='/04-batch-detail.html'">
+                    <td style="font-weight:600">BTH-2026-0381</td>
+                    <td>12 Mar 2026</td>
+                    <td>760</td>
+                    <td>755 / 5</td>
+                    <td>&#8377;5,32,000</td>
+                    <td>&#8377;53,200</td>
+                    <td>&#8377;4,78,800</td>
+                    <td><span class="badge green">Completed</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                </tr>
+                <tr>
+                    <td style="font-weight:600">BTH-2026-0380</td>
+                    <td>10 Mar 2026</td>
+                    <td>320</td>
+                    <td>320 / 0</td>
+                    <td>&#8377;2,24,000</td>
+                    <td>&#8377;22,400</td>
+                    <td>&#8377;2,01,600</td>
+                    <td><span class="badge grey">Uploaded</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <div class="pagination-info">Showing 1-8 of 387 batches</div>
+            <div class="pagination-buttons">
+                <button class="page-btn nav-btn"><span class="material-icons-outlined">chevron_left</span> Prev</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <span class="page-ellipsis">...</span>
+                <button class="page-btn">49</button>
+                <button class="page-btn nav-btn">Next <span class="material-icons-outlined">chevron_right</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

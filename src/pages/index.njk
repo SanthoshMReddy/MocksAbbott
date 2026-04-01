@@ -1,0 +1,192 @@
+---
+layout: base.njk
+title: Mockups
+showSidebar: false
+showTopbar: false
+permalink: /index.html
+---
+{% block headStyles %}
+<style>
+body { background: #FAFAFA; display: block; min-height: auto; }
+.main { margin-left: 0; min-height: auto; }
+
+.hero {
+    background: var(--dark-blue);
+    padding: 64px 32px 56px;
+    text-align: center;
+}
+.hero-logo { display: inline-block; margin-bottom: 24px; }
+.hero-tagline {
+    font-family: 'Kanit', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--blue);
+    margin-bottom: 12px;
+}
+.hero-description {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.95rem;
+    max-width: 560px;
+    margin: 0 auto 24px;
+}
+.hero-accent {
+    display: inline-block;
+    width: 40px; height: 3px;
+    background: var(--success);
+    border-radius: 2px;
+}
+
+.cards-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 32px 64px;
+}
+.section-heading {
+    font-family: 'Kanit', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 28px;
+    text-align: center;
+}
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+.screen-card {
+    background: var(--white);
+    border: 1px solid #F3F4F6;
+    border-radius: 14px;
+    padding: 28px 24px 24px;
+    display: flex; flex-direction: column;
+    transition: all 0.2s;
+    text-decoration: none;
+    color: var(--text-primary);
+    position: relative; overflow: hidden;
+}
+.screen-card:hover {
+    border-color: var(--blue);
+    box-shadow: 0 8px 24px rgba(21,155,215,0.1);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+.card-icon-wrap {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+}
+.card-icon-wrap .material-icons-outlined { font-size: 24px; color: #fff; }
+.card-icon-wrap.blue { background: var(--blue); }
+.card-icon-wrap.purple { background: var(--purple); }
+.card-icon-wrap.green { background: var(--success); }
+.card-icon-wrap.dark { background: var(--dark-blue); }
+.card-icon-wrap.teal { background: var(--teal); }
+.card-icon-wrap.warning { background: var(--warning); }
+.card-icon-wrap.pink { background: var(--pink); }
+.card-icon-wrap.error { background: var(--error); }
+.screen-card h3 { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
+.screen-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; flex: 1; }
+.screen-card .card-number {
+    position: absolute; top: 16px; right: 18px;
+    font-family: 'Kanit', sans-serif; font-weight: 800;
+    font-size: 2rem; color: rgba(0,0,0,0.04);
+}
+.footer {
+    text-align: center; padding: 24px;
+    font-size: 0.8rem; color: var(--text-secondary);
+    border-top: 1px solid #F3F4F6;
+}
+
+@media (max-width: 900px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .cards-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-logo">
+        <svg width="280" height="60" viewBox="0 0 280 60" fill="none">
+            <g transform="translate(5,2) scale(0.82)">
+                <g transform="translate(-635.84274,-750.91924)">
+                    <path fill="#3BB5E8" d="m 708.91763,751.91925 h -72.07462 v 11.07625 h 68.47655 v 0.01 c 1.98226,0 3.565,1.58961 3.565,3.56314 v 37.19433 l -0.009,0.0315 c -0.0122,1.96479 -1.61079,3.54383 -3.57188,3.54383 h -53.81334 c -1.97009,0 -3.58246,-1.59174 -3.58246,-3.57558 v -15.02596 c 0,-1.97352 1.61237,-3.57557 3.58246,-3.57557 h 46.29759 v -11.06144 h -49.90121 c -6.09944,0 -11.04398,4.93554 -11.04398,11.03074 v 22.23903 c 0,6.09944 4.94454,11.04212 11.04398,11.04212 h 61.03064 c 6.10473,0 11.04212,-4.94268 11.04212,-11.04212 v -44.40449 c 0,-6.09865 -4.93739,-11.04556 -11.04212,-11.04556"/>
+                    <path fill="#FFFFFF" d="m 749.95741,786.43308 h 7.49592 l -3.71317,-11.12467 h -0.10292 z m 10.91883,-18.81161 8.63468,25.82836 c 1.02473,3.15119 1.75022,3.88038 3.54965,3.88038 h 1.75551 v 4.54687 h -18.85395 v -4.54687 h 1.54623 c 1.54993,0 2.83898,-0.20584 2.83898,-0.76755 0,-0.53076 -0.0516,-1.09829 -0.25903,-1.87511 l -1.07791,-3.71131 h -10.54047 l -0.62998,2.06772 c -0.56382,1.8034 -0.77311,2.56911 -0.77311,3.29459 0,0.83371 1.81425,0.99166 3.21919,0.99166 h 1.48563 v 4.54687 h -15.1884 v -4.54687 h 1.75921 c 1.80869,0 2.51963,-0.72919 3.56817,-3.88038 l 8.62727,-25.82836 z"/>
+                    <path fill="#FFFFFF" d="m 786.39795,789.77715 c 0,5.2795 1.18454,8.42539 4.07485,8.42539 2.90882,0 4.0841,-3.14589 4.0841,-8.42539 0,-5.26494 -1.17528,-8.41428 -4.0841,-8.41428 -2.89031,0 -4.07485,3.14934 -4.07485,8.41428 m -8.58494,-15.79827 c 0,-1.45971 -0.3601,-2.22567 -1.85843,-2.22567 h -2.37437 v -4.13174 h 12.81774 v 12.85822 c 1.90791,-2.17064 4.34128,-3.56446 6.6548,-3.56446 7.75335,0 10.6418,6.05631 10.6418,12.86192 0,6.82387 -2.88845,12.86563 -10.6418,12.86563 -3.25385,0 -6.14998,-1.1348 -7.95153,-3.97748 l -1.49277,3.21548 h -5.79544 z"/>
+                    <path fill="#FFFFFF" d="m 815.38146,789.77715 c 0,5.2795 1.1991,8.42539 4.0857,8.42539 2.89613,0 4.07855,-3.14589 4.07855,-8.42539 0,-5.26494 -1.18269,-8.41428 -4.07855,-8.41428 -2.8866,0 -4.0857,3.14934 -4.0857,8.41428 m -8.58149,-15.79827 c 0,-1.45971 -0.3638,-2.22567 -1.84732,-2.22567 h -2.38178 v -4.13174 h 12.81059 v 12.85822 c 1.91717,-2.17064 4.34129,-3.56446 6.66592,-3.56446 7.75308,0 10.64921,6.05631 10.64921,12.86192 0,6.82387 -2.89613,12.86563 -10.64921,12.86563 -3.25411,0 -6.14998,-1.1348 -7.95523,-3.97748 l -1.50389,3.21548 h -5.78829 z"/>
+                    <path fill="#FFFFFF" d="m 844.32053,789.779 c 0,6.09494 1.08347,8.73178 4.18518,8.73178 3.09615,0 4.17777,-2.63684 4.17777,-8.73178 0,-6.09494 -1.08162,-8.72834 -4.17777,-8.72834 -3.10171,0 -4.18518,2.6334 -4.18518,8.72834 m 17.51542,0 c 0,8.27088 -5.63589,12.86378 -13.33024,12.86378 -7.71102,0 -13.33368,-4.5929 -13.33368,-12.86378 0,-8.26558 5.62293,-12.86377 13.33368,-12.86377 7.69435,0 13.33024,4.59819 13.33024,12.86377"/>
+                    <path fill="#FFFFFF" d="m 898.67494,790.19757 v 4.02908 c 0,2.37437 -0.5125,3.77931 -2.47729,3.77931 -1.18639,0 -1.75022,-0.88503 -1.75022,-1.97406 v -14.20601 h 6.34286 v -4.13543 h -6.3426 v -9.59724 h -5.12497 c -0.41884,4.2807 -1.75737,9.59697 -6.92309,9.59697 h -8.05789 v -9.59697 h -5.11069 c -0.41698,4.2807 -1.76292,9.59697 -6.92309,9.59697 v 4.13544 h 3.4597 v 12.96643 c 0,5.27209 2.94375,7.85046 8.25632,7.85046 6.21427,0 8.67886,-2.7821 8.67886,-7.85046 v -4.59475 h -4.11956 v 4.02907 c 0,2.37438 -0.5215,3.77931 -2.47888,3.77931 -1.1991,0 -1.76292,-0.88503 -1.76292,-1.97405 v -14.20601 h 11.53583 v 12.96643 c 0,5.27209 2.93079,7.85046 8.25447,7.85046 6.1976,0 8.68416,-2.7821 8.68416,-7.85046 v -4.59475 h -4.141 z"/>
+                </g>
+            </g>
+        </svg>
+    </div>
+    <div class="hero-tagline">Verified Rewards, Delivered Instantly</div>
+    <div class="hero-description">
+        Interactive mockups for Abbott Engage's retailer reward payout platform. 60,000 pharma retailers, KYC verification, TDS compliance, and instant IMPS bank transfers.
+    </div>
+    <div class="hero-accent"></div>
+</section>
+
+<section class="cards-section">
+    <h2 class="section-heading">Application Screens</h2>
+    <div class="cards-grid">
+        <a href="/01-dashboard.html" class="screen-card">
+            <span class="card-number">01</span>
+            <div class="card-icon-wrap blue"><span class="material-icons-outlined">dashboard</span></div>
+            <h3>Dashboard</h3>
+            <p>Program overview with KPIs, onboarding funnel, recent payout batches, and quick actions.</p>
+        </a>
+        <a href="/02-retailer-onboarding.html" class="screen-card">
+            <span class="card-number">02</span>
+            <div class="card-icon-wrap green"><span class="material-icons-outlined">how_to_reg</span></div>
+            <h3>Retailer Onboarding</h3>
+            <p>Browse 60K retailers with KYC status tracking, GSTIN verification stages, and search filters.</p>
+        </a>
+        <a href="/03-payout-batches.html" class="screen-card">
+            <span class="card-number">03</span>
+            <div class="card-icon-wrap purple"><span class="material-icons-outlined">payments</span></div>
+            <h3>Payout Batches</h3>
+            <p>Upload CSV payout files, track batch processing status, view validation results.</p>
+        </a>
+        <a href="/04-batch-detail.html" class="screen-card">
+            <span class="card-number">04</span>
+            <div class="card-icon-wrap dark"><span class="material-icons-outlined">receipt_long</span></div>
+            <h3>Batch Detail</h3>
+            <p>Individual payout line items within a batch with OTP and IMPS transfer status.</p>
+        </a>
+        <a href="/05-wallet.html" class="screen-card">
+            <span class="card-number">05</span>
+            <div class="card-icon-wrap warning"><span class="material-icons-outlined">account_balance_wallet</span></div>
+            <h3>Wallet</h3>
+            <p>Prefunded wallet balance, transaction ledger with credits, debits, and UTR tracking.</p>
+        </a>
+        <a href="/06-tds-reports.html" class="screen-card">
+            <span class="card-number">06</span>
+            <div class="card-icon-wrap teal"><span class="material-icons-outlined">summarize</span></div>
+            <h3>TDS Reports</h3>
+            <p>Section 194R compliance reports, quarterly breakdowns, Form 26Q exports, and per-retailer ledgers.</p>
+        </a>
+        <a href="/07-manual-review.html" class="screen-card">
+            <span class="card-number">07</span>
+            <div class="card-icon-wrap error"><span class="material-icons-outlined">rate_review</span></div>
+            <h3>Manual Review</h3>
+            <p>Failed KYC cases queue with document comparison, entity name matching, approve/reject workflow.</p>
+        </a>
+        <a href="/08-settings.html" class="screen-card">
+            <span class="card-number">08</span>
+            <div class="card-icon-wrap pink"><span class="material-icons-outlined">settings</span></div>
+            <h3>Settings</h3>
+            <p>Tenant configuration for KYC, TDS, payout, wallet alerts, and notification templates.</p>
+        </a>
+        <a href="/09-retailer-wizard.html" class="screen-card">
+            <span class="card-number">09</span>
+            <div class="card-icon-wrap warning"><span class="material-icons-outlined">phonelink_setup</span></div>
+            <h3>Retailer Onboarding Wizard</h3>
+            <p>Public-facing SMS link experience: GSTIN verification, bank account validation, entity name matching, and confirmation.</p>
+        </a>
+    </div>
+</section>
+
+<footer class="footer">
+    Abbott Engage Mockups &mdash; ShakePe &mdash; "The Appreciation Engine"
+</footer>
+{% endblock %}

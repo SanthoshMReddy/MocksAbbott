@@ -1,0 +1,549 @@
+---
+layout: base.njk
+title: Retailer Onboarding
+navActive: /09-retailer-wizard.html
+permalink: /09-retailer-wizard.html
+showSidebar: false
+showTopbar: false
+---
+{% block headStyles %}
+<style>
+body { background: var(--pale-blue); display: block; min-height: 100vh; }
+.main { margin-left: 0; min-height: 100vh; display: flex; flex-direction: column; }
+
+/* ========== WIZARD SHELL ========== */
+.wizard-topbar {
+  background: var(--dark-blue); padding: 16px 24px;
+  display: flex; align-items: center; gap: 14px;
+}
+.wizard-topbar svg { flex-shrink: 0; }
+.wizard-brand { color: #fff; font-family: 'Kanit', sans-serif; font-weight: 700; font-size: 1.1rem; }
+.wizard-brand small { display: block; font-weight: 400; font-size: 0.7rem; opacity: 0.6; font-family: 'Inter', sans-serif; }
+.wizard-powered { margin-left: auto; font-size: 0.7rem; color: rgba(255,255,255,0.4); display: flex; align-items: center; gap: 6px; }
+.wizard-powered span { color: rgba(255,255,255,0.7); font-weight: 600; }
+
+/* ========== PROGRESS STEPPER ========== */
+.stepper {
+  background: #fff; padding: 20px 24px; border-bottom: 1px solid var(--grey);
+  display: flex; align-items: center; justify-content: center; gap: 0;
+}
+.step-item { display: flex; align-items: center; gap: 0; }
+.step-circle {
+  width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-family: 'Kanit', sans-serif; font-weight: 700; font-size: 0.9rem; flex-shrink: 0;
+  border: 2px solid var(--grey); color: var(--dark-grey); background: #fff; transition: all 0.3s;
+}
+.step-circle.active { border-color: var(--blue); color: #fff; background: var(--blue); }
+.step-circle.done { border-color: var(--success); color: #fff; background: var(--success); }
+.step-label { font-size: 0.72rem; font-weight: 600; color: var(--dark-grey); margin-top: 4px; text-align: center; white-space: nowrap; }
+.step-label.active { color: var(--blue); }
+.step-label.done { color: var(--success); }
+.step-connector { width: 48px; height: 2px; background: var(--grey); margin: 0 4px; margin-bottom: 18px; transition: background 0.3s; }
+.step-connector.done { background: var(--success); }
+.step-col { display: flex; flex-direction: column; align-items: center; }
+
+/* ========== WIZARD BODY ========== */
+.wizard-body { flex: 1; display: flex; justify-content: center; padding: 32px 24px; }
+.wizard-card {
+  background: #fff; border-radius: 16px; border: 1px solid #E5E7EB;
+  width: 100%; max-width: 560px; padding: 36px 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+.wizard-card h2 { font-family: 'Kanit', sans-serif; font-weight: 700; font-size: 1.4rem; color: var(--dark-blue); margin-bottom: 4px; }
+.wizard-card .step-desc { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 28px; line-height: 1.5; }
+
+/* ========== FORM ELEMENTS ========== */
+.form-group { margin-bottom: 22px; }
+.form-label { display: block; font-weight: 600; font-size: 0.85rem; color: var(--text-primary); margin-bottom: 6px; }
+.form-label .required { color: var(--error); }
+.form-input {
+  width: 100%; padding: 11px 14px; border: 1px solid var(--grey); border-radius: 10px;
+  font-family: 'Inter', sans-serif; font-size: 0.92rem; outline: none; transition: border-color 0.2s;
+  background: var(--pale-blue);
+}
+.form-input:focus { border-color: var(--blue); background: #fff; }
+.form-input.success { border-color: var(--success); background: var(--success-light); }
+.form-input.error { border-color: var(--error); background: var(--error-light); }
+.form-hint { font-size: 0.78rem; color: var(--text-secondary); margin-top: 4px; }
+.form-error { font-size: 0.78rem; color: var(--error); margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+.form-error .material-icons-outlined { font-size: 14px; }
+.form-success { font-size: 0.78rem; color: var(--success-dark); margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+.form-success .material-icons-outlined { font-size: 14px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* File upload */
+.file-upload {
+  border: 2px dashed var(--grey); border-radius: 12px; padding: 28px; text-align: center;
+  cursor: pointer; transition: all 0.2s; background: var(--pale-blue);
+}
+.file-upload:hover { border-color: var(--blue); background: var(--blue-light); }
+.file-upload .material-icons-outlined { font-size: 36px; color: var(--dark-grey); margin-bottom: 8px; }
+.file-upload p { font-size: 0.85rem; color: var(--text-secondary); }
+.file-upload .formats { font-size: 0.75rem; color: var(--dark-grey); margin-top: 4px; }
+.file-upload.uploaded { border-color: var(--success); border-style: solid; background: var(--success-light); }
+.file-upload.uploaded .material-icons-outlined { color: var(--success); }
+.file-upload.uploaded p { color: var(--success-dark); font-weight: 600; }
+
+/* ========== VERIFICATION STATUS CARDS ========== */
+.verify-card {
+  border-radius: 12px; padding: 16px 18px; margin-bottom: 14px;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.verify-card.pending { background: #FEF3C7; border: 1px solid #FDE68A; }
+.verify-card.running { background: var(--blue-light); border: 1px solid #BAE6FD; }
+.verify-card.success { background: var(--success-light); border: 1px solid #A7F3D0; }
+.verify-card.failed { background: var(--error-light); border: 1px solid #FECACA; }
+.verify-icon {
+  width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.verify-card.pending .verify-icon { background: var(--warning-light); color: #D97706; }
+.verify-card.running .verify-icon { background: #DBEAFE; color: var(--blue); }
+.verify-card.success .verify-icon { background: #A7F3D0; color: var(--success-dark); }
+.verify-card.failed .verify-icon { background: #FECACA; color: #DC2626; }
+.verify-icon .material-icons-outlined { font-size: 22px; }
+.verify-title { font-weight: 600; font-size: 0.9rem; color: var(--text-primary); margin-bottom: 2px; }
+.verify-detail { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.4; }
+.verify-card.success .verify-detail { color: var(--success-dark); }
+.verify-card.failed .verify-detail { color: #DC2626; }
+
+/* Spinner */
+.verify-spinner {
+  width: 22px; height: 22px; border: 3px solid var(--blue-light);
+  border-top-color: var(--blue); border-radius: 50%; animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Name match bar */
+.match-bar-wrap { margin-top: 8px; }
+.match-bar-label { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px; }
+.match-bar-label span:first-child { color: var(--text-secondary); }
+.match-bar-label span:last-child { font-weight: 700; }
+.match-bar { height: 8px; background: #E5E7EB; border-radius: 4px; overflow: hidden; }
+.match-bar-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+.match-bar-fill.high { background: var(--success); }
+.match-bar-fill.mid { background: var(--warning); }
+.match-bar-fill.low { background: var(--error); }
+
+/* ========== NAME COMPARISON TABLE ========== */
+.name-compare { border: 1px solid #E5E7EB; border-radius: 10px; overflow: hidden; margin-top: 12px; }
+.name-compare-row { display: flex; padding: 10px 14px; font-size: 0.85rem; border-bottom: 1px solid #F3F4F6; }
+.name-compare-row:last-child { border-bottom: none; }
+.name-compare-row .ncr-label { width: 120px; font-weight: 600; color: var(--text-secondary); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; flex-shrink: 0; }
+.name-compare-row .ncr-value { flex: 1; font-weight: 500; color: var(--text-primary); }
+.name-compare-header { background: #F9FAFB; font-weight: 700; }
+
+/* ========== BUTTONS ========== */
+.wizard-actions { display: flex; gap: 12px; margin-top: 28px; }
+.wizard-actions .btn { flex: 1; justify-content: center; padding: 12px; font-size: 0.95rem; border-radius: 12px; }
+.btn-back { background: transparent; border: 1px solid var(--grey); color: var(--text-primary); }
+.btn-back:hover { border-color: var(--text-secondary); }
+
+/* ========== CONFIRMATION PAGE ========== */
+.confirm-hero { text-align: center; padding: 20px 0; }
+.confirm-icon {
+  width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--success-light);
+}
+.confirm-icon .material-icons-outlined { font-size: 44px; color: var(--success); }
+.confirm-hero h2 { color: var(--success-dark); margin-bottom: 8px; }
+.confirm-hero p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; max-width: 420px; margin: 0 auto; }
+.confirm-details {
+  background: var(--pale-blue); border-radius: 12px; padding: 20px; margin-top: 24px;
+}
+.confirm-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.88rem; border-bottom: 1px solid #E5E7EB; }
+.confirm-row:last-child { border-bottom: none; }
+.confirm-row .cr-label { color: var(--text-secondary); }
+.confirm-row .cr-value { font-weight: 600; color: var(--text-primary); }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 600px) {
+  .wizard-card { padding: 24px 20px; }
+  .stepper { padding: 16px 12px; gap: 0; }
+  .step-connector { width: 24px; }
+  .step-label { font-size: 0.65rem; }
+  .form-row { grid-template-columns: 1fr; }
+  .wizard-actions { flex-direction: column; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- WIZARD TOP BAR -->
+<div class="wizard-topbar">
+  <svg width="32" height="32" viewBox="-5 -5 92 78" fill="none">
+    <g transform="translate(-635.84274,-750.91924)">
+      <path fill="#3BB5E8" d="m 708.91763,751.91925 h -72.07462 v 11.07625 h 68.47655 v 0.01 c 1.98226,0 3.565,1.58961 3.565,3.56314 v 37.19433 l -0.009,0.0315 c -0.0122,1.96479 -1.61079,3.54383 -3.57188,3.54383 h -53.81334 c -1.97009,0 -3.58246,-1.59174 -3.58246,-3.57558 v -15.02596 c 0,-1.97352 1.61237,-3.57557 3.58246,-3.57557 h 46.29759 v -11.06144 h -49.90121 c -6.09944,0 -11.04398,4.93554 -11.04398,11.03074 v 22.23903 c 0,6.09944 4.94454,11.04212 11.04398,11.04212 h 61.03064 c 6.10473,0 11.04212,-4.94268 11.04212,-11.04212 v -44.40449 c 0,-6.09865 -4.93739,-11.04556 -11.04212,-11.04556"/>
+    </g>
+  </svg>
+  <div class="wizard-brand">Abbott India<small>Retailer Reward Program</small></div>
+  <div class="wizard-powered">Powered by <span>Engage</span></div>
+</div>
+
+<!-- PROGRESS STEPPER -->
+<div class="stepper" id="stepper">
+  <div class="step-col">
+    <div class="step-circle done" id="sc1"><span class="material-icons-outlined" style="font-size:18px;">check</span></div>
+    <div class="step-label done">GSTIN</div>
+  </div>
+  <div class="step-connector done"></div>
+  <div class="step-col">
+    <div class="step-circle done" id="sc2"><span class="material-icons-outlined" style="font-size:18px;">check</span></div>
+    <div class="step-label done">Documents</div>
+  </div>
+  <div class="step-connector done"></div>
+  <div class="step-col">
+    <div class="step-circle done" id="sc3"><span class="material-icons-outlined" style="font-size:18px;">check</span></div>
+    <div class="step-label done">Bank Details</div>
+  </div>
+  <div class="step-connector done"></div>
+  <div class="step-col">
+    <div class="step-circle active" id="sc4">4</div>
+    <div class="step-label active">Verification</div>
+  </div>
+  <div class="step-connector"></div>
+  <div class="step-col">
+    <div class="step-circle" id="sc5">5</div>
+    <div class="step-label">Confirmation</div>
+  </div>
+</div>
+
+<!-- WIZARD BODY -->
+<div class="wizard-body">
+  <!-- ==================== STEP 1: GSTIN ==================== -->
+  <div class="wizard-card" id="step1" style="display:none;">
+    <h2>GSTIN Verification</h2>
+    <p class="step-desc">Enter your GSTIN number to verify your business identity with Abbott India's Reward Program.</p>
+
+    <div class="form-group">
+      <label class="form-label">GSTIN Number <span class="required">*</span></label>
+      <input type="text" class="form-input" placeholder="e.g., 27AABCU9603R1ZP" maxlength="15" value="" id="gstinInput">
+      <div class="form-hint">15-character alphanumeric GST Identification Number</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Registered Phone Number <span class="required">*</span></label>
+      <input type="tel" class="form-input" placeholder="e.g., 9876543210" maxlength="10" value="">
+      <div class="form-hint">Must match the phone number provided by Abbott</div>
+    </div>
+
+    <div class="wizard-actions">
+      <button class="btn btn-primary" onclick="goToStep(2)">
+        Verify GSTIN <span class="material-icons-outlined">arrow_forward</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 2: DOCUMENTS ==================== -->
+  <div class="wizard-card" id="step2" style="display:none;">
+    <h2>Upload Documents</h2>
+    <p class="step-desc">Upload your GST certificate and cancelled cheque for identity verification.</p>
+
+    <div class="form-group">
+      <label class="form-label">GST Certificate <span class="required">*</span></label>
+      <div class="file-upload uploaded">
+        <span class="material-icons-outlined">task</span>
+        <p>GST_Certificate_27AAPFS5235K1Z8.pdf</p>
+        <div class="formats">Uploaded successfully - 1.2 MB</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Cancelled Cheque <span class="required">*</span></label>
+      <div class="file-upload uploaded">
+        <span class="material-icons-outlined">task</span>
+        <p>Cancelled_Cheque_HDFC.jpg</p>
+        <div class="formats">Uploaded successfully - 856 KB</div>
+      </div>
+    </div>
+
+    <div class="wizard-actions">
+      <button class="btn btn-back" onclick="goToStep(1)">
+        <span class="material-icons-outlined">arrow_back</span> Back
+      </button>
+      <button class="btn btn-primary" onclick="goToStep(3)">
+        Continue <span class="material-icons-outlined">arrow_forward</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 3: BANK DETAILS ==================== -->
+  <div class="wizard-card" id="step3" style="display:none;">
+    <h2>Bank Account Details</h2>
+    <p class="step-desc">Enter your bank account details. Rewards will be transferred directly to this account via IMPS.</p>
+
+    <div class="form-group">
+      <label class="form-label">Account Holder Name <span class="required">*</span></label>
+      <input type="text" class="form-input success" value="SHARMA MEDICAL STORE">
+      <div class="form-success"><span class="material-icons-outlined">check_circle</span> Name auto-filled from cancelled cheque</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Bank Account Number <span class="required">*</span></label>
+      <input type="text" class="form-input" value="50100268745123" placeholder="Enter account number">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Confirm Account Number <span class="required">*</span></label>
+      <input type="text" class="form-input success" value="50100268745123">
+      <div class="form-success"><span class="material-icons-outlined">check_circle</span> Account numbers match</div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">IFSC Code <span class="required">*</span></label>
+        <input type="text" class="form-input" value="HDFC0001234" maxlength="11" placeholder="e.g., HDFC0001234">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Bank Name</label>
+        <input type="text" class="form-input" value="HDFC Bank" disabled style="opacity:0.7;">
+        <div class="form-hint">Auto-detected from IFSC</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">PAN Number (Optional)</label>
+      <input type="text" class="form-input" value="AAPFS5235K" maxlength="10" placeholder="e.g., ABCDE1234F">
+      <div class="form-hint">PAN is used for TDS bracket determination (10% vs 20%)</div>
+    </div>
+
+    <div class="wizard-actions">
+      <button class="btn btn-back" onclick="goToStep(2)">
+        <span class="material-icons-outlined">arrow_back</span> Back
+      </button>
+      <button class="btn btn-primary" onclick="goToStep(4)">
+        Verify Account <span class="material-icons-outlined">arrow_forward</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 4: VERIFICATION ==================== -->
+  <div class="wizard-card" id="step4">
+    <h2>Verification in Progress</h2>
+    <p class="step-desc">We are verifying your details against government and banking databases. This usually takes less than 30 seconds.</p>
+
+    <!-- Check 1: GSTIN Verification -->
+    <div class="verify-card success">
+      <div class="verify-icon"><span class="material-icons-outlined">verified</span></div>
+      <div>
+        <div class="verify-title">GSTIN Verification</div>
+        <div class="verify-detail">GSTIN 27AAPFS5235K1Z8 is active. Trade name: SHARMA MEDICAL STORE</div>
+      </div>
+    </div>
+
+    <!-- Check 2: Bank Account Verification (Penny Drop) -->
+    <div class="verify-card success">
+      <div class="verify-icon"><span class="material-icons-outlined">account_balance</span></div>
+      <div>
+        <div class="verify-title">Bank Account Verification (Penny Drop)</div>
+        <div class="verify-detail">Account verified. Holder: SHARMA MEDICAL STORE. Ref: PD20260401-48291</div>
+      </div>
+    </div>
+
+    <!-- Check 3: Entity Name Matching -->
+    <div class="verify-card success">
+      <div class="verify-icon"><span class="material-icons-outlined">compare_arrows</span></div>
+      <div style="flex:1;">
+        <div class="verify-title">Entity Name Matching</div>
+        <div class="verify-detail">GSTIN entity name matches bank account holder name</div>
+        <div class="name-compare">
+          <div class="name-compare-row name-compare-header">
+            <div class="ncr-label">Source</div>
+            <div class="ncr-value">Entity Name</div>
+          </div>
+          <div class="name-compare-row">
+            <div class="ncr-label">GSTIN</div>
+            <div class="ncr-value">SHARMA MEDICAL STORE</div>
+          </div>
+          <div class="name-compare-row">
+            <div class="ncr-label">Bank (Penny Drop)</div>
+            <div class="ncr-value">SHARMA MEDICAL STORE</div>
+          </div>
+        </div>
+        <div class="match-bar-wrap">
+          <div class="match-bar-label">
+            <span>Name Match Score</span>
+            <span style="color:var(--success-dark);">97%</span>
+          </div>
+          <div class="match-bar">
+            <div class="match-bar-fill high" style="width:97%;"></div>
+          </div>
+          <div style="font-size:0.75rem; color:var(--success-dark); margin-top:4px;">Threshold: 85% -- Match successful</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Check 4: PAN Verification -->
+    <div class="verify-card success">
+      <div class="verify-icon"><span class="material-icons-outlined">badge</span></div>
+      <div>
+        <div class="verify-title">PAN Verification</div>
+        <div class="verify-detail">PAN AAPFS5235K verified. IT returns filed -- TDS bracket: 10%</div>
+      </div>
+    </div>
+
+    <!-- Check 5: Duplicate Check -->
+    <div class="verify-card running" id="duplicateCheck">
+      <div class="verify-icon"><div class="verify-spinner"></div></div>
+      <div>
+        <div class="verify-title">Duplicate Registration Check</div>
+        <div class="verify-detail">Checking if GSTIN is already registered in the system...</div>
+      </div>
+    </div>
+
+    <div class="wizard-actions">
+      <button class="btn btn-back" onclick="goToStep(3)">
+        <span class="material-icons-outlined">arrow_back</span> Back
+      </button>
+      <button class="btn btn-primary" id="verifyNextBtn" onclick="completeDuplicateCheck()">
+        <span class="material-icons-outlined" style="font-size:18px;">hourglass_top</span> Verifying...
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 5: CONFIRMATION ==================== -->
+  <div class="wizard-card" id="step5" style="display:none;">
+    <div class="confirm-hero">
+      <div class="confirm-icon">
+        <span class="material-icons-outlined">check_circle</span>
+      </div>
+      <h2>Verification Complete</h2>
+      <p>You are now part of the Abbott India Retailer Reward Program. Rewards will be transferred directly to your verified bank account.</p>
+    </div>
+
+    <div class="confirm-details">
+      <div class="confirm-row">
+        <span class="cr-label">Retailer Name</span>
+        <span class="cr-value">Sharma Medical Store</span>
+      </div>
+      <div class="confirm-row">
+        <span class="cr-label">GSTIN</span>
+        <span class="cr-value">27AAPFS5235K1Z8</span>
+      </div>
+      <div class="confirm-row">
+        <span class="cr-label">Bank Account</span>
+        <span class="cr-value">HDFC Bank -- ****5123</span>
+      </div>
+      <div class="confirm-row">
+        <span class="cr-label">PAN</span>
+        <span class="cr-value">AAPFS5235K</span>
+      </div>
+      <div class="confirm-row">
+        <span class="cr-label">TDS Bracket</span>
+        <span class="cr-value">10% (IT returns filed)</span>
+      </div>
+      <div class="confirm-row">
+        <span class="cr-label">Verification ID</span>
+        <span class="cr-value" style="font-family:monospace; font-size:0.82rem;">VRF-2026-04-58291</span>
+      </div>
+      <div class="confirm-row" style="border-bottom:none;">
+        <span class="cr-label">Status</span>
+        <span class="cr-value" style="color:var(--success-dark); display:flex; align-items:center; gap:4px;">
+          <span class="material-icons-outlined" style="font-size:16px;">verified</span> Verified
+        </span>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:24px; padding:16px; background:var(--blue-light); border-radius:12px;">
+      <span class="material-icons-outlined" style="color:var(--blue); font-size:22px; margin-bottom:4px;">sms</span>
+      <p style="font-size:0.85rem; color:var(--text-secondary);">A confirmation SMS has been sent to your registered phone number <strong>98765 43210</strong></p>
+    </div>
+
+    <div class="wizard-actions" style="justify-content:center;">
+      <button class="btn btn-outline" onclick="goToStep(1)" style="flex:none; padding:12px 28px;">
+        <span class="material-icons-outlined">refresh</span> Start Over (Demo)
+      </button>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+var currentStep = 4;
+
+function goToStep(step) {
+  // Hide all steps
+  for (var i = 1; i <= 5; i++) {
+    document.getElementById('step' + i).style.display = 'none';
+  }
+  // Show target step
+  document.getElementById('step' + step).style.display = 'block';
+  currentStep = step;
+  updateStepper(step);
+
+  // Reset duplicate check if going to step 4
+  if (step === 4) {
+    resetDuplicateCheck();
+  }
+}
+
+function updateStepper(step) {
+  for (var i = 1; i <= 5; i++) {
+    var circle = document.getElementById('sc' + i);
+    var label = circle.parentElement.querySelector('.step-label');
+
+    circle.className = 'step-circle';
+    label.className = 'step-label';
+
+    if (i < step) {
+      circle.className = 'step-circle done';
+      circle.innerHTML = '<span class="material-icons-outlined" style="font-size:18px;">check</span>';
+      label.className = 'step-label done';
+    } else if (i === step) {
+      circle.className = 'step-circle active';
+      circle.textContent = i;
+      label.className = 'step-label active';
+    } else {
+      circle.textContent = i;
+    }
+  }
+
+  // Update connectors
+  var connectors = document.querySelectorAll('.step-connector');
+  connectors.forEach(function(c, idx) {
+    c.className = 'step-connector' + (idx < step - 1 ? ' done' : '');
+  });
+}
+
+function resetDuplicateCheck() {
+  var el = document.getElementById('duplicateCheck');
+  el.className = 'verify-card running';
+  el.innerHTML =
+    '<div class="verify-icon"><div class="verify-spinner"></div></div>' +
+    '<div><div class="verify-title">Duplicate Registration Check</div>' +
+    '<div class="verify-detail">Checking if GSTIN is already registered in the system...</div></div>';
+
+  var btn = document.getElementById('verifyNextBtn');
+  btn.innerHTML = '<span class="material-icons-outlined" style="font-size:18px;">hourglass_top</span> Verifying...';
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
+
+  // Auto-complete after 2 seconds
+  setTimeout(function() {
+    completeDuplicateCheck();
+  }, 2000);
+}
+
+function completeDuplicateCheck() {
+  var el = document.getElementById('duplicateCheck');
+  el.className = 'verify-card success';
+  el.innerHTML =
+    '<div class="verify-icon"><span class="material-icons-outlined">verified</span></div>' +
+    '<div><div class="verify-title">Duplicate Registration Check</div>' +
+    '<div class="verify-detail">No existing registration found. GSTIN is eligible for onboarding.</div></div>';
+
+  var btn = document.getElementById('verifyNextBtn');
+  btn.innerHTML = 'Complete Verification <span class="material-icons-outlined">arrow_forward</span>';
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  btn.onclick = function() { goToStep(5); };
+}
+
+// Auto-trigger duplicate check on load
+setTimeout(function() {
+  completeDuplicateCheck();
+}, 2000);
+</script>
+{% endblock %}

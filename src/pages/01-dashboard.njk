@@ -1,0 +1,205 @@
+---
+layout: base.njk
+title: Dashboard
+navActive: /01-dashboard.html
+permalink: /01-dashboard.html
+---
+{% block headStyles %}
+<style>
+.welcome-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.welcome-bar h1 span { color: var(--blue); }
+.welcome-bar p { color: var(--text-secondary); font-size: 0.9rem; margin-top: 2px; }
+
+.funnel-bar { display: flex; align-items: stretch; border-radius: 10px; overflow: hidden; height: 36px; margin-bottom: 8px; }
+.funnel-seg { display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.75rem; font-weight: 600; }
+.funnel-legend { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 8px; }
+.funnel-legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-secondary); }
+.funnel-legend-item .dot { width: 10px; height: 10px; border-radius: 3px; }
+
+.quick-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.quick-action {
+    display: flex; align-items: center; gap: 12px; padding: 16px;
+    background: var(--pale-blue); border-radius: 10px;
+    cursor: pointer; transition: all 0.15s;
+    text-decoration: none; color: var(--text-primary);
+}
+.quick-action:hover { background: #E5E7EB; text-decoration: none; }
+.quick-action .qa-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; color: var(--white);
+}
+.quick-action .qa-icon.b { background: var(--blue); }
+.quick-action .qa-icon.p { background: var(--purple); }
+.quick-action .qa-icon.g { background: var(--success); }
+.quick-action .qa-icon.t { background: var(--teal); }
+.quick-action .qa-icon.w { background: var(--warning); }
+.quick-action .qa-icon.d { background: var(--dark-blue); }
+.quick-action .qa-label { font-weight: 600; font-size: 0.9rem; }
+.quick-action .qa-desc { font-size: 0.75rem; color: var(--text-secondary); }
+
+@media (max-width: 768px) { .quick-actions { grid-template-columns: 1fr; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <!-- Welcome -->
+    <div class="welcome-bar">
+        <div>
+            <h1>Good Morning, <span>{{ user.name | split(" ") | first }}</span></h1>
+            <p>Abbott Engage -- Retailer Reward Payout Program</p>
+        </div>
+        <a href="/03-payout-batches.html" class="btn btn-primary">
+            <span class="material-icons-outlined">upload_file</span> Upload Payout CSV
+        </a>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="summary-cards">
+        <div class="summary-card mint">
+            <span class="card-icon material-icons-outlined">how_to_reg</span>
+            <div class="card-label">Retailers Onboarded</div>
+            <div class="card-number">58,742</div>
+            <div class="card-sub">of 60,000 target</div>
+        </div>
+        <div class="summary-card blue">
+            <span class="card-icon material-icons-outlined">account_balance_wallet</span>
+            <div class="card-label">Wallet Balance</div>
+            <div class="card-number">&#8377;24,50,000</div>
+            <div class="card-sub">Last funded 2 days ago</div>
+        </div>
+        <div class="summary-card yellow">
+            <span class="card-icon material-icons-outlined">payments</span>
+            <div class="card-label">Payouts This Month</div>
+            <div class="card-number">&#8377;18,35,600</div>
+            <div class="card-sub">4,218 transactions</div>
+        </div>
+        <div class="summary-card pink">
+            <span class="card-icon material-icons-outlined">receipt_long</span>
+            <div class="card-label">TDS Deducted (FY)</div>
+            <div class="card-number">&#8377;6,42,800</div>
+            <div class="card-sub">Section 194R @ 10%</div>
+        </div>
+    </div>
+
+    <!-- Two-column layout -->
+    <div class="two-col">
+        <!-- Left: Onboarding Funnel + Recent Batches -->
+        <div>
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="material-icons-outlined">filter_alt</span>
+                        <h3>Onboarding Funnel</h3>
+                    </div>
+                    <a href="/02-retailer-onboarding.html" class="btn btn-sm btn-outline">View All</a>
+                </div>
+                <div class="funnel-bar">
+                    <div class="funnel-seg" style="flex:52;background:var(--success)">52K</div>
+                    <div class="funnel-seg" style="flex:4.2;background:var(--warning)">4.2K</div>
+                    <div class="funnel-seg" style="flex:1.8;background:var(--error)">1.8K</div>
+                    <div class="funnel-seg" style="flex:1.2;background:var(--purple)">1.2K</div>
+                    <div class="funnel-seg" style="flex:0.8;background:var(--dark-grey)">0.8K</div>
+                </div>
+                <div class="funnel-legend">
+                    <div class="funnel-legend-item"><span class="dot" style="background:var(--success)"></span> Verified (52,014)</div>
+                    <div class="funnel-legend-item"><span class="dot" style="background:var(--warning)"></span> Pending KYC (4,216)</div>
+                    <div class="funnel-legend-item"><span class="dot" style="background:var(--error)"></span> Failed (1,842)</div>
+                    <div class="funnel-legend-item"><span class="dot" style="background:var(--purple)"></span> Manual Review (1,200)</div>
+                    <div class="funnel-legend-item"><span class="dot" style="background:var(--dark-grey)"></span> Not Started (800)</div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="material-icons-outlined">history</span>
+                        <h3>Recent Payout Batches</h3>
+                    </div>
+                    <a href="/03-payout-batches.html" class="btn btn-sm btn-outline">View All</a>
+                </div>
+                <div class="table-scroll-wrapper">
+                <table class="data-table">
+                    <thead><tr><th>Batch ID</th><th>Date</th><th>Rows</th><th>Net Amount</th><th>Status</th></tr></thead>
+                    <tbody>
+                        <tr onclick="window.location='/04-batch-detail.html'">
+                            <td style="font-weight:600">BTH-2026-0387</td>
+                            <td>28 Mar 2026</td>
+                            <td>1,240</td>
+                            <td>&#8377;8,42,600</td>
+                            <td><span class="badge green">Completed</span></td>
+                        </tr>
+                        <tr onclick="window.location='/04-batch-detail.html'">
+                            <td style="font-weight:600">BTH-2026-0386</td>
+                            <td>25 Mar 2026</td>
+                            <td>980</td>
+                            <td>&#8377;5,61,200</td>
+                            <td><span class="badge green">Completed</span></td>
+                        </tr>
+                        <tr onclick="window.location='/04-batch-detail.html'">
+                            <td style="font-weight:600">BTH-2026-0385</td>
+                            <td>22 Mar 2026</td>
+                            <td>1,450</td>
+                            <td>&#8377;9,18,400</td>
+                            <td><span class="badge blue">Processing</span></td>
+                        </tr>
+                        <tr onclick="window.location='/04-batch-detail.html'">
+                            <td style="font-weight:600">BTH-2026-0384</td>
+                            <td>20 Mar 2026</td>
+                            <td>640</td>
+                            <td>&#8377;3,92,100</td>
+                            <td><span class="badge yellow">Validating</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:600">BTH-2026-0383</td>
+                            <td>18 Mar 2026</td>
+                            <td>85</td>
+                            <td>&#8377;52,400</td>
+                            <td><span class="badge red">Failed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Quick Actions -->
+        <div>
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="material-icons-outlined">bolt</span>
+                        <h3>Quick Actions</h3>
+                    </div>
+                </div>
+                <div class="quick-actions">
+                    <a href="/03-payout-batches.html" class="quick-action">
+                        <div class="qa-icon b"><span class="material-icons-outlined">upload_file</span></div>
+                        <div><div class="qa-label">Upload Payout CSV</div><div class="qa-desc">Create a new batch</div></div>
+                    </a>
+                    <a href="/02-retailer-onboarding.html" class="quick-action">
+                        <div class="qa-icon g"><span class="material-icons-outlined">person_add</span></div>
+                        <div><div class="qa-label">Onboard Retailers</div><div class="qa-desc">Send KYC invitations</div></div>
+                    </a>
+                    <a href="/05-wallet.html" class="quick-action">
+                        <div class="qa-icon w"><span class="material-icons-outlined">account_balance</span></div>
+                        <div><div class="qa-label">Fund Wallet</div><div class="qa-desc">Add balance via NEFT/RTGS</div></div>
+                    </a>
+                    <a href="/06-tds-reports.html" class="quick-action">
+                        <div class="qa-icon t"><span class="material-icons-outlined">download</span></div>
+                        <div><div class="qa-label">Export TDS Report</div><div class="qa-desc">Download Form 26Q data</div></div>
+                    </a>
+                    <a href="/07-manual-review.html" class="quick-action">
+                        <div class="qa-icon p"><span class="material-icons-outlined">rate_review</span></div>
+                        <div><div class="qa-label">Review KYC Cases</div><div class="qa-desc">12 cases pending</div></div>
+                    </a>
+                    <a href="/08-settings.html" class="quick-action">
+                        <div class="qa-icon d"><span class="material-icons-outlined">tune</span></div>
+                        <div><div class="qa-label">Program Settings</div><div class="qa-desc">KYC, TDS, Payout config</div></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

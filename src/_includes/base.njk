@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abbott Engage — {{ title }}</title>
+<link href="{{ theme.typography.fontUrl }}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+<link rel="stylesheet" href="/assets/styles.css?v={{ cacheBust }}">
+{% include "theme-css.njk" %}
+{% block headStyles %}{% endblock %}
+</head>
+<body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+{% if showSidebar !== false %}
+{% include "sidebar.njk" %}
+{% endif %}
+<div class="main">
+  {% if showTopbar !== false %}
+  {% include "topbar.njk" %}
+  {% endif %}
+  {% block content %}{{ content | safe }}{% endblock %}
+</div>
+{% block scripts %}{% endblock %}
+{% if showSidebar !== false %}
+<script>
+function toggleSidebar(){
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.querySelector('.sidebar-overlay').classList.toggle('visible');
+}
+document.querySelectorAll('.nav-item').forEach(function(item){
+  item.addEventListener('click',function(){
+    if(window.innerWidth<=768){
+      document.querySelector('.sidebar').classList.remove('open');
+      document.querySelector('.sidebar-overlay').classList.remove('visible');
+    }
+  });
+});
+</script>
+{% endif %}
+</body>
+</html>
