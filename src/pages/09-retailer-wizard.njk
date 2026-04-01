@@ -183,23 +183,23 @@ body { background: var(--pale-blue); display: block; min-height: 100vh; }
 <!-- PROGRESS STEPPER -->
 <div class="stepper" id="stepper">
   <div class="step-col">
-    <div class="step-circle done" id="sc1"><span class="material-icons-outlined" style="font-size:18px;">check</span></div>
-    <div class="step-label done">GSTIN</div>
+    <div class="step-circle active" id="sc1">1</div>
+    <div class="step-label active">GSTIN</div>
   </div>
-  <div class="step-connector done"></div>
+  <div class="step-connector"></div>
   <div class="step-col">
-    <div class="step-circle done" id="sc2"><span class="material-icons-outlined" style="font-size:18px;">check</span></div>
-    <div class="step-label done">Documents</div>
+    <div class="step-circle" id="sc2">2</div>
+    <div class="step-label">Documents</div>
   </div>
-  <div class="step-connector done"></div>
+  <div class="step-connector"></div>
   <div class="step-col">
-    <div class="step-circle done" id="sc3"><span class="material-icons-outlined" style="font-size:18px;">check</span></div>
-    <div class="step-label done">Bank Details</div>
+    <div class="step-circle" id="sc3">3</div>
+    <div class="step-label">Bank Details</div>
   </div>
-  <div class="step-connector done"></div>
+  <div class="step-connector"></div>
   <div class="step-col">
-    <div class="step-circle active" id="sc4">4</div>
-    <div class="step-label active">Verification</div>
+    <div class="step-circle" id="sc4">4</div>
+    <div class="step-label">Verification</div>
   </div>
   <div class="step-connector"></div>
   <div class="step-col">
@@ -211,7 +211,7 @@ body { background: var(--pale-blue); display: block; min-height: 100vh; }
 <!-- WIZARD BODY -->
 <div class="wizard-body">
   <!-- ==================== STEP 1: GSTIN ==================== -->
-  <div class="wizard-card" id="step1" style="display:none;">
+  <div class="wizard-card" id="step1">
     <h2>GSTIN Verification</h2>
     <p class="step-desc">Enter your GSTIN number to verify your business identity with Abbott India's Reward Program.</p>
 
@@ -318,7 +318,7 @@ body { background: var(--pale-blue); display: block; min-height: 100vh; }
   </div>
 
   <!-- ==================== STEP 4: VERIFICATION ==================== -->
-  <div class="wizard-card" id="step4">
+  <div class="wizard-card" id="step4" style="display:none;">
     <h2>Verification in Progress</h2>
     <p class="step-desc">We are verifying your details against government and banking databases. This usually takes less than 30 seconds.</p>
 
@@ -461,7 +461,7 @@ body { background: var(--pale-blue); display: block; min-height: 100vh; }
 
 {% block scripts %}
 <script>
-var currentStep = 4;
+var currentStep = 1;
 
 function goToStep(step) {
   // Hide all steps
@@ -541,9 +541,7 @@ function completeDuplicateCheck() {
   btn.onclick = function() { goToStep(5); };
 }
 
-// Auto-trigger duplicate check on load
-setTimeout(function() {
-  completeDuplicateCheck();
-}, 2000);
+// Initialize stepper to step 1 on load
+updateStepper(1);
 </script>
 {% endblock %}
