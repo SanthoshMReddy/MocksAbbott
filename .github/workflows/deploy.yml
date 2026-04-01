@@ -1,0 +1,109 @@
+name: Build & Deploy to DigitalOcean
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      subdomain_override:
+        description: 'Override subdomain (leave empty for .deploy.conf)'
+        required: false
+        default: ''
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read .deploy.conf
+        id: config
+        run: |
+          if [ ! -f ".deploy.conf" ]; then
+            echo "::error::Missing .deploy.conf"; exit 1
+          fi
+          source .deploy.conf
+          if [ -n "${{ github.event.inputs.subdomain_override }}" ]; then
+            SUBDOMAIN="${{ github.event.inputs.subdomain_override }}"
+          fi
+          if [ -z "$SUBDOMAIN" ]; then
+            echo "::error::SUBDOMAIN not set in .deploy.conf"; exit 1
+          fi
+          if ! echo "$SUBDOMAIN" | grep -qE '^[a-z0-9]([a-z0-9-]*[a-z0-9])?$'; then
+            echo "::error::Invalid SUBDOMAIN '${SUBDOMAIN}'"; exit 1
+          fi
+          FULL_DOMAIN="${SUBDOMAIN}.${{ secrets.BASE_DOMAIN }}"
+          echo "subdomain=${SUBDOMAIN}" >> $GITHUB_OUTPUT
+          echo "full_domain=${FULL_DOMAIN}" >> $GITHUB_OUTPUT
+          echo "web_root=/var/www/${FULL_DOMAIN}/html" >> $GITHUB_OUTPUT
+
+          # Read build configuration
+          BUILD_OUTPUT="${BUILD_OUTPUT:-dist}"
+          NODE_VERSION="${NODE_VERSION:-20}"
+          BUILD_CMD="${BUILD_CMD:-npm run build}"
+          echo "build_output=${BUILD_OUTPUT}" >> $GITHUB_OUTPUT
+          echo "node_version=${NODE_VERSION}" >> $GITHUB_OUTPUT
+          echo "build_cmd=${BUILD_CMD}" >> $GITHUB_OUTPUT
+
+          echo "Deploying: ${FULL_DOMAIN}"
+          echo "Build: ${BUILD_CMD} → ${BUILD_OUTPUT}/"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.config.outputs.node_version }}
+          cache: ${{ hashFiles('**/package-lock.json') != '' && 'npm' || '' }}
+
+      - name: Install dependencies
+        run: |
+          if [ -f "package-lock.json" ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Build
+        run: ${{ steps.config.outputs.build_cmd }}
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.DROPLET_SSH_KEY }}
+          known_hosts: unnecessary
+          if_key_exists: replace
+
+      - name: Add droplet to known hosts
+        run: ssh-keyscan -H ${{ secrets.DROPLET_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Setup Nginx site
+        run: |
+          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} \
+            "/opt/deploy/setup-nginx-site.sh ${{ steps.config.outputs.full_domain }}"
+
+      - name: Deploy build output
+        run: |
+          rsync -avz --delete \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./${{ steps.config.outputs.build_output }}/ \
+            ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }}:${{ steps.config.outputs.web_root }}/
+
+      - name: Set permissions and reload
+        run: |
+          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} << 'EOF'
+            chown -R www-data:www-data /var/www/${{ steps.config.outputs.full_domain }}
+            chmod -R 755 /var/www/${{ steps.config.outputs.full_domain }}
+            nginx -t && systemctl reload nginx
+          EOF
+
+      - name: Summary
+        run: |
+          echo ""
+          echo "============================================"
+          echo "  DEPLOYED: https://${{ steps.config.outputs.full_domain }}"
+          echo "  Tag: ${GITHUB_REF_NAME} | Commit: ${GITHUB_SHA::8}"
+          echo "  Build: ${{ steps.config.outputs.build_cmd }}"
+          echo "  Output: ${{ steps.config.outputs.build_output }}/"
+          echo "============================================"
