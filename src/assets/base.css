@@ -17,6 +17,11 @@ body {
 }
 a { text-decoration: none; }
 a:hover { text-decoration: underline; }
+a.btn, a.btn:hover,
+a.nav-item, a.nav-item:hover,
+a.quick-action, a.quick-action:hover,
+a.screen-card, a.screen-card:hover,
+a.filter-pill, a.filter-pill:hover { text-decoration: none !important; }
 
 /* -- Sidebar Layout -- */
 .sidebar {
