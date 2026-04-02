@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="{{ site.theme | default('clinical') }}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +7,18 @@
 <link href="{{ theme.typography.fontUrl }}" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 <link rel="stylesheet" href="/assets/base.css?v={{ cacheBust }}">
-<link rel="stylesheet" href="/assets/themes/{{ site.theme | default('clinical') }}.css?v={{ cacheBust }}">
+<link rel="stylesheet" href="/assets/themes/{{ site.theme | default('clinical') }}.css?v={{ cacheBust }}" id="theme-css-link">
 {% include "theme-css.njk" %}
+{% include "theme-switcher-vars.njk" %}
+<script>
+(function(){
+  var saved = localStorage.getItem('mockup-theme');
+  if (saved && saved !== '{{ site.theme | default("clinical") }}') {
+    document.documentElement.setAttribute('data-theme', saved);
+    document.getElementById('theme-css-link').href = '/assets/themes/' + saved + '.css?v={{ cacheBust }}';
+  }
+})();
+</script>
 {% block headStyles %}{% endblock %}
 </head>
 <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>

@@ -99,6 +99,43 @@ body { background: var(--canvas); display: block; min-height: auto; }
 
 @media (max-width: 900px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .cards-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; } }
+
+/* Theme Picker (hidden by default) */
+.theme-overlay {
+    display: none; position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+}
+.theme-overlay.visible { display: flex; }
+.theme-picker {
+    background: #fff; border-radius: 16px; padding: 32px;
+    width: 90%; max-width: 640px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    animation: pickerIn 0.2s ease;
+}
+@keyframes pickerIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: none; } }
+.theme-picker h3 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; color: #1A1A1A; }
+.theme-picker .picker-desc { font-size: 0.82rem; color: #6B7280; margin-bottom: 24px; }
+.theme-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.theme-option {
+    border: 2px solid #E5E7EB; border-radius: 12px; padding: 20px 16px;
+    cursor: pointer; transition: all 0.15s ease; text-align: center;
+    background: #fff;
+}
+.theme-option:hover { border-color: #159BD7; background: #F8FBFF; }
+.theme-option.active { border-color: #159BD7; background: #EFF8FD; box-shadow: 0 0 0 3px rgba(21,155,215,0.15); }
+.theme-option .to-icon { font-size: 28px; margin-bottom: 8px; display: block; }
+.theme-option .to-name { font-weight: 700; font-size: 0.88rem; color: #1A1A1A; margin-bottom: 4px; }
+.theme-option .to-desc { font-size: 0.7rem; color: #6B7280; line-height: 1.4; }
+.theme-picker .picker-hint {
+    margin-top: 20px; text-align: center;
+    font-size: 0.72rem; color: #9CA3AF;
+}
+.theme-picker .picker-hint kbd {
+    display: inline-block; padding: 1px 6px; border: 1px solid #D1D5DB;
+    border-radius: 4px; font-family: monospace; font-size: 0.7rem;
+    background: #F9FAFB; color: #6B7280;
+}
 </style>
 {% endblock %}
 
@@ -188,4 +225,80 @@ body { background: var(--canvas); display: block; min-height: auto; }
 <footer class="footer">
     Abbott Engage Mockups &mdash; ShakePe &mdash; "The Appreciation Engine"
 </footer>
+
+<!-- Hidden Theme Picker (press E to reveal) -->
+<div class="theme-overlay" id="themeOverlay" onclick="if(event.target===this)closeThemePicker()">
+    <div class="theme-picker">
+        <h3>Switch Design Theme</h3>
+        <p class="picker-desc">Choose a design style. All pages will update instantly.</p>
+        <div class="theme-options">
+            <div class="theme-option" data-theme="clinical" onclick="applyTheme('clinical')">
+                <span class="to-icon material-icons-outlined">straighten</span>
+                <div class="to-name">Clinical</div>
+                <div class="to-desc">Borders-only, cool palette, left-accent stat cards</div>
+            </div>
+            <div class="theme-option" data-theme="glassmorphism" onclick="applyTheme('glassmorphism')">
+                <span class="to-icon material-icons-outlined">blur_on</span>
+                <div class="to-name">Glassmorphism</div>
+                <div class="to-desc">Frosted glass, backdrop blur, colored glow</div>
+            </div>
+            <div class="theme-option" data-theme="neo-brutalist" onclick="applyTheme('neo-brutalist')">
+                <span class="to-icon material-icons-outlined">crop_square</span>
+                <div class="to-name">Neo-Brutalist</div>
+                <div class="to-desc">Thick borders, offset shadows, bold typography</div>
+            </div>
+        </div>
+        <div class="picker-hint">Press <kbd>E</kbd> to toggle &middot; Press <kbd>Esc</kbd> to close</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function applyTheme(name) {
+    // Swap CSS file
+    document.getElementById('theme-css-link').href = '/assets/themes/' + name + '.css?v=' + Date.now();
+    // Swap CSS variables via data-theme attribute
+    document.documentElement.setAttribute('data-theme', name);
+    // Persist choice
+    localStorage.setItem('mockup-theme', name);
+    // Update active state in picker
+    document.querySelectorAll('.theme-option').forEach(function(el) {
+        el.classList.toggle('active', el.getAttribute('data-theme') === name);
+    });
+    // Close picker after a short delay
+    setTimeout(closeThemePicker, 300);
+}
+
+function openThemePicker() {
+    var overlay = document.getElementById('themeOverlay');
+    overlay.classList.add('visible');
+    // Highlight current theme
+    var current = localStorage.getItem('mockup-theme') || '{{ site.theme | default("clinical") }}';
+    document.querySelectorAll('.theme-option').forEach(function(el) {
+        el.classList.toggle('active', el.getAttribute('data-theme') === current);
+    });
+}
+
+function closeThemePicker() {
+    document.getElementById('themeOverlay').classList.remove('visible');
+}
+
+document.addEventListener('keydown', function(e) {
+    // Ignore if typing in an input
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    if (e.key === 'e' || e.key === 'E') {
+        var overlay = document.getElementById('themeOverlay');
+        if (overlay.classList.contains('visible')) {
+            closeThemePicker();
+        } else {
+            openThemePicker();
+        }
+    }
+    if (e.key === 'Escape') {
+        closeThemePicker();
+    }
+});
+</script>
 {% endblock %}
