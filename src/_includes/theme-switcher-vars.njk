@@ -132,4 +132,48 @@ html[data-theme="warm-minimal"] {
   --radius-sm: 6px; --radius-md: 8px; --radius-lg: 10px;
   --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px; --sp-8: 32px;
 }
+
+/* Plutus theme variables (from Harmony production) */
+html[data-theme="plutus"] {
+  --canvas: hsl(220,14%,96%);
+  --surface: #FFFFFF;
+  --surface-raised: #FFFFFF;
+  --muted-bg: hsl(220,13%,94%);
+  --sidebar-bg: hsl(240,10%,4%);
+  --sidebar-active: rgba(16,185,129,0.12);
+  --sidebar-hover: rgba(255,255,255,0.05);
+  --sidebar-text: rgba(255,255,255,0.55);
+  --sidebar-text-active: #10B981;
+  --sidebar-divider: rgba(255,255,255,0.08);
+  --stat-teal-bg: hsl(166,76%,97%); --stat-teal-border: hsl(168,44%,82%);
+  --stat-blue-bg: hsl(214,95%,93%); --stat-blue-border: hsl(213,93%,83%);
+  --stat-amber-bg: hsl(48,96%,89%); --stat-amber-border: hsl(48,96%,78%);
+  --stat-red-bg: hsl(0,86%,97%); --stat-red-border: hsl(0,93%,85%);
+  --stat-purple-bg: hsl(251,91%,95%); --stat-purple-border: hsl(252,95%,85%);
+  --ink: hsl(240,10%,4%);
+  --faded: hsl(240,5%,34%);
+  --muted: hsl(240,5%,65%);
+  --placeholder: hsl(220,12%,82%);
+  --border: hsl(220,12%,82%);
+  --border-md: hsl(220,13%,88%);
+  --border-strong: hsl(240,5%,65%);
+  --accent: {{ theme.colors.accent }};
+  --accent-hover: {{ theme.colors.accentHover }};
+  --accent-light: hsl(220,13%,94%);
+  --navy: hsl(240,10%,4%);
+  --success: {{ theme.colors.success }};
+  --success-light: hsl(152,81%,96%);
+  --success-dark: {{ theme.colors.successDark }};
+  --warning: {{ theme.colors.warning }};
+  --warning-light: hsl(48,96%,89%);
+  --error: {{ theme.colors.error }};
+  --error-light: hsl(0,86%,97%);
+  --purple: {{ theme.colors.purple }};
+  --purple-light: hsl(251,91%,95%);
+  --teal: {{ theme.colors.teal }};
+  --pink: {{ theme.colors.pink }};
+  --sidebar-width: 256px;
+  --radius-sm: 8px; --radius-md: 10px; --radius-lg: 12px;
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px; --sp-8: 32px;
+}
 </style>

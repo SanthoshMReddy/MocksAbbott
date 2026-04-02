@@ -1,0 +1,199 @@
+/* ============================================================
+   PLUTUS — Visual Theme
+   Matches ShakeDeal/ShakePe Harmony production design system
+   Dark sidebar · Tinted stat cards · Emerald primary · Light shadows
+   Extracted from: sd-harmony/frontend/src/app/globals.css
+   ============================================================ */
+
+/* -- Typography (Kanit headings — ShakeDeal/ShakePe standard) -- */
+h1, h2, h3, h4 { font-family: 'Kanit', sans-serif; line-height: 1.25; }
+h1 { font-size: 1.5rem; font-weight: 700; }
+h2 { font-size: 1.07rem; font-weight: 600; }
+h3 { font-size: 0.93rem; font-weight: 600; }
+h4 { font-size: 0.8rem; font-weight: 500; }
+body { background: var(--canvas); color: var(--ink); font-size: 15px; }
+a { color: var(--accent); }
+
+/* ============================================================
+   DARK SIDEBAR (from Harmony sidebar dark mode)
+   ============================================================ */
+.sidebar {
+  background: var(--sidebar-bg) !important;
+  border-right: none;
+}
+.sidebar-header {
+  background: transparent !important;
+  border-bottom: 1px solid var(--sidebar-divider);
+}
+.sidebar-brand { color: #fff; font-family: 'Kanit', sans-serif; font-weight: 700; font-size: 1.05rem; }
+.sidebar-brand small { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.65rem; opacity: 0.4; display: block; margin-top: 1px; color: #fff; }
+.nav-item {
+  color: var(--sidebar-text) !important;
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin-right: var(--sp-2);
+  font-size: 0.88rem;
+}
+.nav-item .material-icons-outlined { opacity: 0.6; }
+.nav-item:hover {
+  background: var(--sidebar-hover) !important;
+  color: rgba(255,255,255,0.85) !important;
+  text-decoration: none;
+}
+.nav-item:hover .material-icons-outlined { opacity: 0.85; }
+.nav-item.active {
+  border-left-color: var(--accent) !important;
+  background: var(--sidebar-active) !important;
+  color: var(--sidebar-text-active) !important;
+  font-weight: 600;
+}
+.nav-item.active .material-icons-outlined { opacity: 1; color: var(--sidebar-text-active); }
+.nav-badge {
+  background: var(--accent) !important; color: #fff;
+  border-radius: 9999px; font-size: 0.6rem;
+}
+.nav-divider { background: var(--sidebar-divider) !important; }
+.sidebar-footer {
+  border-top: 1px solid var(--sidebar-divider) !important;
+}
+.sidebar-footer .nav-item { color: var(--sidebar-text) !important; }
+.sidebar-footer .nav-item:hover { color: rgba(255,255,255,0.85) !important; }
+
+/* -- Topbar (from Harmony header: sticky, white, shadow) -- */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.topbar-search {
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+  background: var(--canvas);
+}
+.topbar-search .material-icons-outlined { color: var(--muted); }
+.topbar-search input { color: var(--ink); }
+.topbar-search input::placeholder { color: var(--placeholder); }
+.topbar-icon { color: var(--faded); }
+.notif-dot { background: var(--error); border: 2px solid var(--surface); }
+.avatar {
+  border-radius: 50%; background: var(--accent); color: #fff;
+  font-family: 'Kanit', sans-serif;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.topbar-name { color: var(--ink); font-weight: 600; font-size: 0.88rem; }
+.topbar-role { color: var(--muted); font-size: 0.72rem; }
+
+/* -- Buttons (from Harmony button: shadow-button, rounded-md) -- */
+.btn {
+  border-radius: var(--radius-sm); transition: all 0.2s ease;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-hover); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.btn-outline {
+  background: var(--surface); border: 1px solid var(--border); color: var(--ink);
+}
+.btn-outline:hover { background: rgba(16,185,129,0.06); color: var(--accent); border-color: var(--border); }
+.btn-success { background: var(--success); color: #fff; }
+.btn-success:hover { background: var(--success-dark); }
+
+/* -- Badges (from Harmony: rounded-full, border, tinted bg) -- */
+.badge {
+  border-radius: 9999px;
+  border: 1px solid transparent;
+}
+.badge.green { background: hsl(152,81%,96%); color: hsl(160,84%,39%); border-color: hsl(152,68%,85%); }
+.badge.blue { background: hsl(214,95%,93%); color: hsl(217,91%,60%); border-color: hsl(213,93%,83%); }
+.badge.yellow { background: hsl(48,96%,89%); color: hsl(38,92%,40%); border-color: hsl(48,96%,78%); }
+.badge.red { background: hsl(0,86%,97%); color: hsl(0,84%,60%); border-color: hsl(0,93%,85%); }
+.badge.grey { background: var(--muted-bg); color: var(--faded); border-color: var(--border); }
+.badge.purple { background: hsl(251,91%,95%); color: hsl(258,90%,66%); border-color: hsl(252,95%,85%); }
+
+/* -- Summary Cards (from Harmony stat-card: tinted bg + colored border) -- */
+.summary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
+  transition: all 0.2s ease;
+}
+.summary-card:hover { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
+.summary-card.accent-green { background: var(--stat-teal-bg); border-color: var(--stat-teal-border); }
+.summary-card.accent-blue { background: var(--stat-blue-bg); border-color: var(--stat-blue-border); }
+.summary-card.accent-amber { background: var(--stat-amber-bg); border-color: var(--stat-amber-border); }
+.summary-card.accent-rose { background: var(--stat-red-bg); border-color: var(--stat-red-border); }
+.summary-card.accent-purple { background: var(--stat-purple-bg); border-color: var(--stat-purple-border); }
+.summary-card.accent-teal { background: var(--stat-teal-bg); border-color: var(--stat-teal-border); }
+.summary-card .card-icon { color: var(--faded); opacity: 0.3; font-size: 28px; }
+.summary-card .card-label { color: var(--faded); font-weight: 500; font-size: 0.78rem; }
+.summary-card .card-number { font-family: 'Kanit', sans-serif; font-size: 1.85rem; color: var(--ink); }
+.summary-card .card-sub { font-size: 0.72rem; color: var(--faded); }
+
+/* -- Section Card (from Harmony card: shadow-card, rounded-xl) -- */
+.section-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
+}
+.section-title .material-icons-outlined { color: var(--accent); }
+
+/* -- Table (from Harmony: muted header, border rows) -- */
+.data-table thead th {
+  background: var(--muted-bg); color: var(--faded);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.72rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.data-table tbody td { border-bottom: 1px solid var(--border-md); color: var(--ink); }
+.data-table tbody tr { transition: background 0.15s ease; }
+.data-table tbody tr:hover { background: var(--muted-bg); }
+.data-table tbody tr:last-child td { border-bottom: none; }
+
+/* -- Pipeline Dots -- */
+.pipeline-dots .dot { border: 1.5px solid var(--border); }
+.pipeline-dots .dot.done { border: none; }
+.pipeline-dots .dot.done.p { background: var(--purple); }
+.pipeline-dots .dot.done.b { background: var(--accent); }
+.pipeline-dots .dot.done.g { background: var(--success); }
+.pipeline-dots .dot.active.p { border-color: var(--purple); color: var(--purple); }
+.pipeline-dots .dot.active.b { border-color: var(--accent); color: var(--accent); }
+.pipeline-dots .dot.active.g { border-color: var(--success); color: var(--success); }
+.pipeline-dots .dot-line { background: var(--border); }
+
+/* -- Filter Pills (from Harmony tabs: primary tint active) -- */
+.filter-pill {
+  border: 1px solid var(--border); background: var(--surface); color: var(--faded);
+  border-radius: 9999px; transition: all 0.2s ease;
+}
+.filter-pill:hover { background: rgba(16,185,129,0.06); color: var(--accent); }
+.filter-pill.active {
+  background: rgba(16,185,129,0.1); color: var(--accent); border-color: rgba(16,185,129,0.2);
+  font-weight: 600;
+}
+
+/* -- Content Search -- */
+.content-search {
+  border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface);
+}
+.content-search .material-icons-outlined { color: var(--muted); }
+.content-search input { color: var(--ink); }
+.content-search input::placeholder { color: var(--placeholder); }
+
+/* -- Pagination -- */
+.pagination-info { color: var(--muted); }
+.page-btn {
+  border-radius: var(--radius-sm); border: 1px solid var(--border);
+  background: var(--surface); color: var(--faded); transition: all 0.2s ease;
+}
+.page-btn:hover { background: rgba(16,185,129,0.06); color: var(--accent); }
+.page-btn.active {
+  background: rgba(16,185,129,0.1); color: var(--accent); border-color: rgba(16,185,129,0.2);
+  font-weight: 600;
+}
+.page-ellipsis { color: var(--muted); }
+
+/* -- Hamburger & Overlay -- */
+.hamburger-btn { color: var(--ink); }
+.sidebar-overlay { background: rgba(3,6,19,0.4); }

@@ -116,7 +116,7 @@ body { background: var(--canvas); display: block; min-height: auto; }
 @keyframes pickerIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: none; } }
 .theme-picker h3 { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; color: #1A1A1A; }
 .theme-picker .picker-desc { font-size: 0.82rem; color: #6B7280; margin-bottom: 24px; }
-.theme-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.theme-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .theme-option {
     border: 2px solid #E5E7EB; border-radius: 12px; padding: 20px 16px;
     cursor: pointer; transition: all 0.15s ease; text-align: center;
@@ -251,6 +251,11 @@ body { background: var(--canvas); display: block; min-height: auto; }
                 <span class="to-icon material-icons-outlined">wb_sunny</span>
                 <div class="to-name">Warm Minimal</div>
                 <div class="to-desc">Parchment canvas, near-borderless, amber accent, whitespace-driven</div>
+            </div>
+            <div class="theme-option" data-theme="plutus" onclick="applyTheme('plutus')">
+                <span class="to-icon material-icons-outlined">dashboard_customize</span>
+                <div class="to-name">Plutus</div>
+                <div class="to-desc">Dark navy sidebar, pastel gradient cards, Kanit headings, light shadows</div>
             </div>
         </div>
         <div class="picker-hint">Press <kbd>E</kbd> to toggle &middot; Press <kbd>Esc</kbd> to close</div>
