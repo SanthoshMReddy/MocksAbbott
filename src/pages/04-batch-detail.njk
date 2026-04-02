@@ -6,19 +6,19 @@ permalink: /04-batch-detail.html
 ---
 {% block headStyles %}
 <style>
-.batch-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
-.batch-header h1 { margin-right: auto; }
-.batch-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
-.batch-meta-item { font-size: 0.85rem; color: var(--text-secondary); }
-.batch-meta-item strong { color: var(--text-primary); font-weight: 600; }
+.batch-header { display: flex; align-items: center; gap: var(--sp-4); margin-bottom: var(--sp-5); flex-wrap: wrap; }
+.batch-header h1 { margin-right: auto; font-family: 'Kanit', sans-serif; }
+.batch-meta { display: flex; gap: var(--sp-6); flex-wrap: wrap; margin-bottom: var(--sp-6); }
+.batch-meta-item { font-size: 0.78rem; color: var(--faded); }
+.batch-meta-item strong { color: var(--ink); font-weight: 600; }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="content">
     <div class="batch-header">
-        <a href="/03-payout-batches.html" style="color:var(--text-secondary);text-decoration:none">
-            <span class="material-icons-outlined" style="font-size:20px;vertical-align:middle">arrow_back</span>
+        <a href="/03-payout-batches.html" style="color:var(--faded);text-decoration:none">
+            <span class="material-icons-outlined" style="font-size:18px;vertical-align:middle">arrow_back</span>
         </a>
         <h1>BTH-2026-0387</h1>
         <span class="badge green">Completed</span>
@@ -35,25 +35,25 @@ permalink: /04-batch-detail.html
 
     <!-- Summary Cards -->
     <div class="summary-cards">
-        <div class="summary-card mint">
+        <div class="summary-card accent-green">
             <span class="card-icon material-icons-outlined">check_circle</span>
             <div class="card-label">Valid Payouts</div>
             <div class="card-number">1,218</div>
             <div class="card-sub">of 1,240 rows</div>
         </div>
-        <div class="summary-card blue">
+        <div class="summary-card accent-blue">
             <span class="card-icon material-icons-outlined">currency_rupee</span>
             <div class="card-label">Gross Amount</div>
             <div class="card-number">&#8377;9,36,000</div>
             <div class="card-sub">Avg &#8377;769 per payout</div>
         </div>
-        <div class="summary-card yellow">
+        <div class="summary-card accent-amber">
             <span class="card-icon material-icons-outlined">receipt_long</span>
             <div class="card-label">TDS Deducted</div>
             <div class="card-number">&#8377;93,600</div>
             <div class="card-sub">10% under Sec 194R</div>
         </div>
-        <div class="summary-card pink">
+        <div class="summary-card accent-rose">
             <span class="card-icon material-icons-outlined">payments</span>
             <div class="card-label">Net Transferred</div>
             <div class="card-number">&#8377;8,42,400</div>
@@ -93,7 +93,7 @@ permalink: /04-batch-detail.html
                     <td>&#8377;1,080</td>
                     <td><span class="badge green">Verified</span></td>
                     <td><span class="badge green">Success</span></td>
-                    <td style="font-family:monospace;font-size:0.82rem">IMPS408712345678</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">IMPS408712345678</td>
                 </tr>
                 <tr>
                     <td style="font-weight:600">Patel Pharma</td>
@@ -102,7 +102,7 @@ permalink: /04-batch-detail.html
                     <td>&#8377;720</td>
                     <td><span class="badge green">Verified</span></td>
                     <td><span class="badge green">Success</span></td>
-                    <td style="font-family:monospace;font-size:0.82rem">IMPS408723456789</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">IMPS408723456789</td>
                 </tr>
                 <tr>
                     <td style="font-weight:600">Deshmukh Pharmacy</td>
@@ -111,7 +111,7 @@ permalink: /04-batch-detail.html
                     <td>&#8377;1,350</td>
                     <td><span class="badge green">Verified</span></td>
                     <td><span class="badge green">Success</span></td>
-                    <td style="font-family:monospace;font-size:0.82rem">IMPS408734567890</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">IMPS408734567890</td>
                 </tr>
                 <tr>
                     <td style="font-weight:600">Nair Drug Store</td>
@@ -120,7 +120,7 @@ permalink: /04-batch-detail.html
                     <td>&#8377;540</td>
                     <td><span class="badge yellow">Pending</span></td>
                     <td><span class="badge grey">Waiting</span></td>
-                    <td>--</td>
+                    <td style="color:var(--muted)">--</td>
                 </tr>
                 <tr>
                     <td style="font-weight:600">Verma Healthcare</td>
@@ -129,7 +129,7 @@ permalink: /04-batch-detail.html
                     <td>&#8377;855</td>
                     <td><span class="badge green">Verified</span></td>
                     <td><span class="badge blue">Processing</span></td>
-                    <td>--</td>
+                    <td style="color:var(--muted)">--</td>
                 </tr>
                 <tr>
                     <td style="font-weight:600">Singh Drug House</td>
@@ -138,7 +138,7 @@ permalink: /04-batch-detail.html
                     <td>&#8377;630</td>
                     <td><span class="badge green">Verified</span></td>
                     <td><span class="badge green">Success</span></td>
-                    <td style="font-family:monospace;font-size:0.82rem">IMPS408756789012</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">IMPS408756789012</td>
                 </tr>
                 <tr>
                     <td style="font-weight:600">Gupta Health Mart</td>
@@ -147,7 +147,7 @@ permalink: /04-batch-detail.html
                     <td>&#8377;450</td>
                     <td><span class="badge red">Expired</span></td>
                     <td><span class="badge red">Failed</span></td>
-                    <td>--</td>
+                    <td style="color:var(--muted)">--</td>
                 </tr>
                 <tr>
                     <td style="font-weight:600">Jain Medical Agencies</td>
@@ -156,7 +156,7 @@ permalink: /04-batch-detail.html
                     <td>&#8377;990</td>
                     <td><span class="badge green">Verified</span></td>
                     <td><span class="badge green">Success</span></td>
-                    <td style="font-family:monospace;font-size:0.82rem">IMPS408767890123</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">IMPS408767890123</td>
                 </tr>
                 <tr>
                     <td style="font-weight:600">Banerjee Chemists</td>
@@ -165,7 +165,7 @@ permalink: /04-batch-detail.html
                     <td>&#8377;765</td>
                     <td><span class="badge green">Verified</span></td>
                     <td><span class="badge red">Failed</span></td>
-                    <td>--</td>
+                    <td style="color:var(--muted)">--</td>
                 </tr>
                 <tr>
                     <td style="font-weight:600">Reddy Medicals</td>
@@ -174,7 +174,7 @@ permalink: /04-batch-detail.html
                     <td>&#8377;400</td>
                     <td><span class="badge green">Verified</span></td>
                     <td><span class="badge green">Success</span></td>
-                    <td style="font-family:monospace;font-size:0.82rem">IMPS408778901234</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">IMPS408778901234</td>
                 </tr>
             </tbody>
         </table>

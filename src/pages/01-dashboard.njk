@@ -6,36 +6,37 @@ permalink: /01-dashboard.html
 ---
 {% block headStyles %}
 <style>
-.welcome-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
-.welcome-bar h1 span { color: var(--blue); }
-.welcome-bar p { color: var(--text-secondary); font-size: 0.9rem; margin-top: 2px; }
+.welcome-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-6); }
+.welcome-bar h1 span { color: var(--accent); }
+.welcome-bar p { color: var(--faded); font-size: 0.82rem; margin-top: 2px; }
 
-.funnel-bar { display: flex; align-items: stretch; border-radius: 10px; overflow: hidden; height: 36px; margin-bottom: 8px; }
-.funnel-seg { display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.75rem; font-weight: 600; }
-.funnel-legend { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 8px; }
-.funnel-legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-secondary); }
-.funnel-legend-item .dot { width: 10px; height: 10px; border-radius: 3px; }
+.funnel-bar { display: flex; align-items: stretch; border-radius: var(--radius-sm); overflow: hidden; height: 28px; margin-bottom: var(--sp-2); }
+.funnel-seg { display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.01em; }
+.funnel-legend { display: flex; gap: var(--sp-5); flex-wrap: wrap; margin-top: var(--sp-2); }
+.funnel-legend-item { display: flex; align-items: center; gap: var(--sp-1); font-size: 0.75rem; color: var(--faded); }
+.funnel-legend-item .dot { width: 8px; height: 8px; border-radius: 2px; }
 
-.quick-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.quick-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3); }
 .quick-action {
-    display: flex; align-items: center; gap: 12px; padding: 16px;
-    background: var(--pale-blue); border-radius: 10px;
-    cursor: pointer; transition: all 0.15s;
-    text-decoration: none; color: var(--text-primary);
+    display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-4);
+    background: var(--canvas); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    cursor: pointer; transition: all 0.12s ease;
+    text-decoration: none; color: var(--ink);
 }
-.quick-action:hover { background: #E5E7EB; text-decoration: none; }
+.quick-action:hover { border-color: var(--border-strong); text-decoration: none; }
 .quick-action .qa-icon {
-    width: 40px; height: 40px; border-radius: 10px;
-    display: flex; align-items: center; justify-content: center; color: var(--white);
+    width: 36px; height: 36px; border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center; color: #fff;
 }
-.quick-action .qa-icon.b { background: var(--blue); }
+.quick-action .qa-icon.b { background: var(--accent); }
 .quick-action .qa-icon.p { background: var(--purple); }
 .quick-action .qa-icon.g { background: var(--success); }
 .quick-action .qa-icon.t { background: var(--teal); }
 .quick-action .qa-icon.w { background: var(--warning); }
-.quick-action .qa-icon.d { background: var(--dark-blue); }
-.quick-action .qa-label { font-weight: 600; font-size: 0.9rem; }
-.quick-action .qa-desc { font-size: 0.75rem; color: var(--text-secondary); }
+.quick-action .qa-icon.d { background: var(--navy); }
+.quick-action .qa-icon .material-icons-outlined { font-size: 18px; }
+.quick-action .qa-label { font-weight: 600; font-size: 0.85rem; }
+.quick-action .qa-desc { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
 
 @media (max-width: 768px) { .quick-actions { grid-template-columns: 1fr; } }
 </style>
@@ -56,29 +57,29 @@ permalink: /01-dashboard.html
 
     <!-- Stat Cards -->
     <div class="summary-cards">
-        <div class="summary-card mint">
+        <div class="summary-card accent-green">
             <span class="card-icon material-icons-outlined">how_to_reg</span>
             <div class="card-label">Retailers Onboarded</div>
             <div class="card-number">58,742</div>
             <div class="card-sub">of 60,000 target</div>
         </div>
-        <div class="summary-card blue">
+        <div class="summary-card accent-blue">
             <span class="card-icon material-icons-outlined">account_balance_wallet</span>
             <div class="card-label">Wallet Balance</div>
             <div class="card-number">&#8377;24,50,000</div>
             <div class="card-sub">Last funded 2 days ago</div>
         </div>
-        <div class="summary-card yellow">
+        <div class="summary-card accent-amber">
             <span class="card-icon material-icons-outlined">payments</span>
             <div class="card-label">Payouts This Month</div>
             <div class="card-number">&#8377;18,35,600</div>
             <div class="card-sub">4,218 transactions</div>
         </div>
-        <div class="summary-card pink">
+        <div class="summary-card accent-rose">
             <span class="card-icon material-icons-outlined">receipt_long</span>
             <div class="card-label">TDS Deducted (FY)</div>
             <div class="card-number">&#8377;6,42,800</div>
-            <div class="card-sub">Section 194R @ 10%</div>
+            <div class="card-sub">Section 194R (threshold: &#8377;20,000)</div>
         </div>
     </div>
 
@@ -99,14 +100,14 @@ permalink: /01-dashboard.html
                     <div class="funnel-seg" style="flex:4.2;background:var(--warning)">4.2K</div>
                     <div class="funnel-seg" style="flex:1.8;background:var(--error)">1.8K</div>
                     <div class="funnel-seg" style="flex:1.2;background:var(--purple)">1.2K</div>
-                    <div class="funnel-seg" style="flex:0.8;background:var(--dark-grey)">0.8K</div>
+                    <div class="funnel-seg" style="flex:0.8;background:var(--muted)">0.8K</div>
                 </div>
                 <div class="funnel-legend">
                     <div class="funnel-legend-item"><span class="dot" style="background:var(--success)"></span> Verified (52,014)</div>
                     <div class="funnel-legend-item"><span class="dot" style="background:var(--warning)"></span> Pending KYC (4,216)</div>
                     <div class="funnel-legend-item"><span class="dot" style="background:var(--error)"></span> Failed (1,842)</div>
                     <div class="funnel-legend-item"><span class="dot" style="background:var(--purple)"></span> Manual Review (1,200)</div>
-                    <div class="funnel-legend-item"><span class="dot" style="background:var(--dark-grey)"></span> Not Started (800)</div>
+                    <div class="funnel-legend-item"><span class="dot" style="background:var(--muted)"></span> Not Started (800)</div>
                 </div>
             </div>
 

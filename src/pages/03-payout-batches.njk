@@ -7,19 +7,19 @@ permalink: /03-payout-batches.html
 {% block headStyles %}
 <style>
 .upload-zone {
-    border: 2px dashed var(--grey);
-    border-radius: 12px;
-    padding: 32px;
+    border: 1.5px dashed var(--border-strong);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-8);
     text-align: center;
-    margin-bottom: 24px;
-    background: var(--white);
+    margin-bottom: var(--sp-5);
+    background: var(--surface);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.15s ease;
 }
-.upload-zone:hover { border-color: var(--blue); background: var(--blue-light); }
-.upload-zone .material-icons-outlined { font-size: 40px; color: var(--blue); margin-bottom: 8px; }
-.upload-zone h4 { margin-bottom: 4px; }
-.upload-zone p { font-size: 0.82rem; color: var(--text-secondary); }
+.upload-zone:hover { border-color: var(--accent); background: var(--accent-light); }
+.upload-zone .material-icons-outlined { font-size: 32px; color: var(--accent); margin-bottom: var(--sp-2); }
+.upload-zone h4 { margin-bottom: var(--sp-1); }
+.upload-zone p { font-size: 0.78rem; color: var(--faded); }
 </style>
 {% endblock %}
 
@@ -76,7 +76,7 @@ permalink: /03-payout-batches.html
                     <td>&#8377;93,600</td>
                     <td>&#8377;8,42,400</td>
                     <td><span class="badge green">Completed</span></td>
-                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--muted);font-size:16px">chevron_right</span></td>
                 </tr>
                 <tr onclick="window.location='/04-batch-detail.html'">
                     <td style="font-weight:600">BTH-2026-0386</td>
@@ -87,7 +87,7 @@ permalink: /03-payout-batches.html
                     <td>&#8377;62,400</td>
                     <td>&#8377;5,61,600</td>
                     <td><span class="badge green">Completed</span></td>
-                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--muted);font-size:16px">chevron_right</span></td>
                 </tr>
                 <tr onclick="window.location='/04-batch-detail.html'">
                     <td style="font-weight:600">BTH-2026-0385</td>
@@ -98,7 +98,7 @@ permalink: /03-payout-batches.html
                     <td>&#8377;1,02,000</td>
                     <td>&#8377;9,18,000</td>
                     <td><span class="badge blue">Processing</span></td>
-                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--muted);font-size:16px">chevron_right</span></td>
                 </tr>
                 <tr onclick="window.location='/04-batch-detail.html'">
                     <td style="font-weight:600">BTH-2026-0384</td>
@@ -109,7 +109,7 @@ permalink: /03-payout-batches.html
                     <td>--</td>
                     <td>--</td>
                     <td><span class="badge yellow">Validating</span></td>
-                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--muted);font-size:16px">chevron_right</span></td>
                 </tr>
                 <tr>
                     <td style="font-weight:600">BTH-2026-0383</td>
@@ -120,7 +120,7 @@ permalink: /03-payout-batches.html
                     <td>--</td>
                     <td>--</td>
                     <td><span class="badge red">Failed</span></td>
-                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--muted);font-size:16px">chevron_right</span></td>
                 </tr>
                 <tr onclick="window.location='/04-batch-detail.html'">
                     <td style="font-weight:600">BTH-2026-0382</td>
@@ -131,7 +131,7 @@ permalink: /03-payout-batches.html
                     <td>&#8377;1,47,000</td>
                     <td>&#8377;13,23,000</td>
                     <td><span class="badge green">Completed</span></td>
-                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--muted);font-size:16px">chevron_right</span></td>
                 </tr>
                 <tr onclick="window.location='/04-batch-detail.html'">
                     <td style="font-weight:600">BTH-2026-0381</td>
@@ -142,7 +142,7 @@ permalink: /03-payout-batches.html
                     <td>&#8377;53,200</td>
                     <td>&#8377;4,78,800</td>
                     <td><span class="badge green">Completed</span></td>
-                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--muted);font-size:16px">chevron_right</span></td>
                 </tr>
                 <tr>
                     <td style="font-weight:600">BTH-2026-0380</td>
@@ -153,7 +153,7 @@ permalink: /03-payout-batches.html
                     <td>&#8377;22,400</td>
                     <td>&#8377;2,01,600</td>
                     <td><span class="badge grey">Uploaded</span></td>
-                    <td><span class="material-icons-outlined" style="color:var(--text-secondary);font-size:18px">chevron_right</span></td>
+                    <td><span class="material-icons-outlined" style="color:var(--muted);font-size:16px">chevron_right</span></td>
                 </tr>
             </tbody>
         </table>

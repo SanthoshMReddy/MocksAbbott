@@ -6,52 +6,55 @@ permalink: /08-settings.html
 ---
 {% block headStyles %}
 <style>
-.settings-layout { display: grid; grid-template-columns: 220px 1fr; gap: 24px; }
+.settings-layout { display: grid; grid-template-columns: 200px 1fr; gap: var(--sp-5); }
 
-.settings-tabs { background: var(--white); border-radius: 12px; border: 1px solid #E5E7EB; padding: 12px 0; height: fit-content; }
+.settings-tabs { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); padding: var(--sp-2) 0; height: fit-content; }
 .settings-tab {
-    display: flex; align-items: center; gap: 10px; padding: 12px 20px;
-    font-size: 0.88rem; font-weight: 500; color: var(--text-secondary);
-    cursor: pointer; transition: all 0.15s; border-left: 3px solid transparent;
+    display: flex; align-items: center; gap: var(--sp-2); padding: var(--sp-2) var(--sp-5);
+    font-size: 0.82rem; font-weight: 500; color: var(--faded);
+    cursor: pointer; transition: all 0.12s ease; border-left: 2px solid transparent;
 }
-.settings-tab:hover { background: #F9FAFB; color: var(--text-primary); }
-.settings-tab.active { border-left-color: var(--blue); background: var(--blue-light); color: var(--blue); font-weight: 600; }
-.settings-tab .material-icons-outlined { font-size: 20px; }
+.settings-tab:hover { background: var(--canvas); color: var(--ink); }
+.settings-tab.active { border-left-color: var(--accent); background: var(--accent-light); color: var(--accent); font-weight: 600; }
+.settings-tab .material-icons-outlined { font-size: 18px; }
 
-.settings-panel { background: var(--white); border-radius: 12px; border: 1px solid #E5E7EB; padding: 28px; }
-.settings-panel h2 { margin-bottom: 8px; }
-.settings-panel .panel-desc { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 24px; }
+.settings-panel { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); padding: var(--sp-6); }
+.settings-panel h2 { margin-bottom: var(--sp-2); }
+.settings-panel .panel-desc { font-size: 0.78rem; color: var(--faded); margin-bottom: var(--sp-6); }
 
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.form-group { margin-bottom: 18px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); }
+.form-group { margin-bottom: var(--sp-4); }
 .form-group label {
-    display: block; font-size: 0.82rem; font-weight: 600;
-    color: var(--text-secondary); margin-bottom: 6px;
+    display: block; font-size: 0.75rem; font-weight: 600;
+    color: var(--faded); margin-bottom: var(--sp-1); text-transform: uppercase; letter-spacing: 0.03em;
 }
 .form-group input, .form-group select, .form-group textarea {
-    width: 100%; padding: 10px 14px; border: 1px solid var(--grey);
-    border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 0.9rem;
-    background: var(--white); color: var(--text-primary);
+    width: 100%; padding: var(--sp-2) var(--sp-3); border: 1px solid var(--border-md);
+    border-radius: var(--radius-md); font-family: 'Inter', sans-serif; font-size: 0.85rem;
+    background: var(--canvas); color: var(--ink);
 }
-.form-group .help-text { font-size: 0.75rem; color: var(--text-secondary); margin-top: 4px; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--accent);
+}
+.form-group .help-text { font-size: 0.7rem; color: var(--muted); margin-top: var(--sp-1); }
 
-.form-divider { height: 1px; background: #E5E7EB; margin: 24px 0; }
+.form-divider { height: 1px; background: var(--border); margin: var(--sp-6) 0; }
 
-.toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #F3F4F6; }
+.toggle-row { display: flex; align-items: center; justify-content: space-between; padding: var(--sp-3) 0; border-bottom: 1px solid var(--border); }
 .toggle-row:last-child { border-bottom: none; }
-.toggle-label { font-weight: 500; font-size: 0.9rem; }
-.toggle-desc { font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px; }
+.toggle-label { font-weight: 500; font-size: 0.85rem; }
+.toggle-desc { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
 .toggle-switch {
-    width: 44px; height: 24px; border-radius: 12px; background: var(--grey);
-    position: relative; cursor: pointer; transition: background 0.2s;
+    width: 40px; height: 22px; border-radius: 11px; background: var(--border-strong);
+    position: relative; cursor: pointer; transition: background 0.15s ease;
 }
-.toggle-switch.on { background: var(--blue); }
+.toggle-switch.on { background: var(--accent); }
 .toggle-switch::after {
     content: ''; position: absolute; top: 2px; left: 2px;
-    width: 20px; height: 20px; border-radius: 50%; background: var(--white);
-    transition: left 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    width: 18px; height: 18px; border-radius: 50%; background: #fff;
+    transition: left 0.15s ease;
 }
-.toggle-switch.on::after { left: 22px; }
+.toggle-switch.on::after { left: 20px; }
 
 @media (max-width: 768px) {
     .settings-layout { grid-template-columns: 1fr; }
@@ -115,15 +118,16 @@ permalink: /08-settings.html
                     <div class="form-group">
                         <label>Verification Provider</label>
                         <select>
-                            <option selected>DigiLocker API</option>
-                            <option>GSTN Portal Direct</option>
+                            <option selected>Surepass API</option>
+                            <option>Gridlines API</option>
+                            <option>Deepvue API</option>
                             <option>Custom Integration</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-divider"></div>
-                <h3 style="margin-bottom:16px">Verification Toggles</h3>
+                <h3 style="margin-bottom:var(--sp-4)">Verification Toggles</h3>
 
                 <div class="toggle-row">
                     <div>
@@ -142,7 +146,14 @@ permalink: /08-settings.html
                 <div class="toggle-row">
                     <div>
                         <div class="toggle-label">PAN Verification</div>
-                        <div class="toggle-desc">Cross-verify PAN with GSTIN records</div>
+                        <div class="toggle-desc">Validate PAN number against NSDL database</div>
+                    </div>
+                    <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                </div>
+                <div class="toggle-row">
+                    <div>
+                        <div class="toggle-label">PAN-Aadhaar Link Check</div>
+                        <div class="toggle-desc">Verify PAN is linked with Aadhaar (operative status). Inoperative PAN triggers 20% TDS.</div>
                     </div>
                     <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
                 </div>
@@ -170,17 +181,18 @@ permalink: /08-settings.html
                     </div>
                     <div class="form-group">
                         <label>Annual Threshold (&#8377;)</label>
-                        <input type="number" value="15000">
-                        <div class="help-text">TDS applicable when cumulative payout exceeds this amount per FY</div>
+                        <input type="number" value="20000">
+                        <div class="help-text">TDS applicable when cumulative payout exceeds this amount per FY. TDS applies on FULL amount once crossed.</div>
                     </div>
                     <div class="form-group">
-                        <label>Default TDS Rate (%)</label>
+                        <label>TDS Rate - PAN Operative (%)</label>
                         <input type="number" value="10" step="0.1">
+                        <div class="help-text">PAN valid and linked with Aadhaar (Section 194R standard rate)</div>
                     </div>
                     <div class="form-group">
-                        <label>TDS Rate - No PAN (%)</label>
+                        <label>TDS Rate - PAN Inoperative / No PAN (%)</label>
                         <input type="number" value="20" step="0.1">
-                        <div class="help-text">Higher rate applied when retailer PAN is unavailable</div>
+                        <div class="help-text">Section 206AA: PAN not furnished or not linked with Aadhaar</div>
                     </div>
                 </div>
             </div>
@@ -245,7 +257,7 @@ permalink: /08-settings.html
                 </div>
 
                 <div class="form-divider"></div>
-                <h3 style="margin-bottom:16px">Alert Recipients</h3>
+                <h3 style="margin-bottom:var(--sp-4)">Alert Recipients</h3>
                 <div class="form-group">
                     <label>Email Addresses (comma separated)</label>
                     <input type="text" value="abhijeet.anand@abbott.com, finance.team@abbott.com">

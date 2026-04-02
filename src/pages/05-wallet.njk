@@ -7,23 +7,28 @@ permalink: /05-wallet.html
 {% block headStyles %}
 <style>
 .balance-card {
-    background: linear-gradient(135deg, var(--dark-blue) 0%, #1a3a6b 100%);
-    border-radius: 16px;
-    padding: 32px 36px;
-    color: var(--white);
-    margin-bottom: 28px;
+    background: var(--navy);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-8) var(--sp-8);
+    color: #fff;
+    margin-bottom: var(--sp-6);
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: var(--sp-5);
 }
-.balance-card .balance-label { font-size: 0.9rem; opacity: 0.7; margin-bottom: 4px; }
-.balance-card .balance-amount { font-family: 'Kanit', sans-serif; font-weight: 800; font-size: 2.5rem; }
-.balance-card .balance-sub { font-size: 0.82rem; opacity: 0.6; margin-top: 4px; }
-.balance-actions { display: flex; gap: 12px; }
-.balance-actions .btn { background: rgba(255,255,255,0.15); color: var(--white); border: 1px solid rgba(255,255,255,0.2); }
-.balance-actions .btn:hover { background: rgba(255,255,255,0.25); }
+.balance-card .balance-label { font-size: 0.78rem; opacity: 0.55; margin-bottom: var(--sp-1); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
+.balance-card .balance-amount { font-family: 'Kanit', sans-serif; font-weight: 800; font-size: 2.25rem; letter-spacing: -0.02em; }
+.balance-card .balance-sub { font-size: 0.75rem; opacity: 0.45; margin-top: var(--sp-1); }
+.balance-actions { display: flex; gap: var(--sp-3); }
+.balance-actions .btn {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+    font-size: 0.78rem;
+}
+.balance-actions .btn:hover { background: rgba(255,255,255,0.18); }
 </style>
 {% endblock %}
 
@@ -53,8 +58,8 @@ permalink: /05-wallet.html
         <span class="filter-pill">Debit</span>
     </div>
 
-    <div class="filter-pills" style="margin-top:-12px">
-        <span style="font-size:0.82rem;color:var(--text-secondary);margin-right:8px">Category:</span>
+    <div class="filter-pills" style="margin-top:calc(-1 * var(--sp-2))">
+        <span style="font-size:0.78rem;color:var(--faded);margin-right:var(--sp-2)">Category:</span>
         <span class="filter-pill active">All</span>
         <span class="filter-pill">Funding</span>
         <span class="filter-pill">Payout</span>
@@ -94,7 +99,7 @@ permalink: /05-wallet.html
                     <td>BTH-2026-0387 (1,218 payouts)</td>
                     <td style="color:var(--error);font-weight:600">- &#8377;8,42,400</td>
                     <td>&#8377;24,50,000</td>
-                    <td style="font-family:monospace;font-size:0.82rem">INT-0387-NET</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">INT-0387-NET</td>
                 </tr>
                 <tr>
                     <td>28 Mar 2026</td>
@@ -103,7 +108,7 @@ permalink: /05-wallet.html
                     <td>Processing fee - BTH-2026-0387</td>
                     <td style="color:var(--error);font-weight:600">- &#8377;12,180</td>
                     <td>&#8377;32,92,400</td>
-                    <td style="font-family:monospace;font-size:0.82rem">FEE-0387</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">FEE-0387</td>
                 </tr>
                 <tr>
                     <td>26 Mar 2026</td>
@@ -112,7 +117,7 @@ permalink: /05-wallet.html
                     <td>NEFT deposit - Abbott India Ltd</td>
                     <td style="color:var(--success);font-weight:600">+ &#8377;50,00,000</td>
                     <td>&#8377;33,04,580</td>
-                    <td style="font-family:monospace;font-size:0.82rem">HDFC0026032612345</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">HDFC0026032612345</td>
                 </tr>
                 <tr>
                     <td>25 Mar 2026</td>
@@ -121,7 +126,7 @@ permalink: /05-wallet.html
                     <td>BTH-2026-0386 (975 payouts)</td>
                     <td style="color:var(--error);font-weight:600">- &#8377;5,61,600</td>
                     <td>&#8377;-16,95,420</td>
-                    <td style="font-family:monospace;font-size:0.82rem">INT-0386-NET</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">INT-0386-NET</td>
                 </tr>
                 <tr>
                     <td>25 Mar 2026</td>
@@ -130,7 +135,7 @@ permalink: /05-wallet.html
                     <td>Processing fee - BTH-2026-0386</td>
                     <td style="color:var(--error);font-weight:600">- &#8377;9,750</td>
                     <td>&#8377;-11,33,820</td>
-                    <td style="font-family:monospace;font-size:0.82rem">FEE-0386</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">FEE-0386</td>
                 </tr>
                 <tr>
                     <td>22 Mar 2026</td>
@@ -139,7 +144,7 @@ permalink: /05-wallet.html
                     <td>KYC verification batch (142 retailers)</td>
                     <td style="color:var(--error);font-weight:600">- &#8377;7,100</td>
                     <td>&#8377;-11,24,070</td>
-                    <td style="font-family:monospace;font-size:0.82rem">KYC-BATCH-0322</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">KYC-BATCH-0322</td>
                 </tr>
                 <tr>
                     <td>20 Mar 2026</td>
@@ -148,7 +153,7 @@ permalink: /05-wallet.html
                     <td>RTGS deposit - Abbott India Ltd</td>
                     <td style="color:var(--success);font-weight:600">+ &#8377;25,00,000</td>
                     <td>&#8377;-11,16,970</td>
-                    <td style="font-family:monospace;font-size:0.82rem">ICIC0020032056789</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">ICIC0020032056789</td>
                 </tr>
                 <tr>
                     <td>18 Mar 2026</td>
@@ -157,7 +162,7 @@ permalink: /05-wallet.html
                     <td>BTH-2026-0382 (2,089 payouts)</td>
                     <td style="color:var(--error);font-weight:600">- &#8377;13,23,000</td>
                     <td>&#8377;-36,16,970</td>
-                    <td style="font-family:monospace;font-size:0.82rem">INT-0382-NET</td>
+                    <td style="font-family:monospace;font-size:0.78rem;color:var(--faded)">INT-0382-NET</td>
                 </tr>
             </tbody>
         </table>

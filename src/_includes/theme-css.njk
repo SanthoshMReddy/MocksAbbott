@@ -1,15 +1,28 @@
 <style>
 :root {
-  --blue: {{ theme.colors.blue }};
-  --blue-light: {{ theme.colors.blueLight }};
-  --blue-dark: {{ theme.colors.blueDark }};
-  --dark-blue: {{ theme.colors.darkBlue }};
-  --pale-blue: {{ theme.colors.paleBlue }};
-  --white: {{ theme.colors.white }};
-  --grey: {{ theme.colors.grey }};
-  --dark-grey: {{ theme.colors.darkGrey }};
-  --text-primary: {{ theme.colors.textPrimary }};
-  --text-secondary: {{ theme.colors.textSecondary }};
+  /* ── Surfaces ── */
+  --canvas: {{ theme.colors.canvas }};
+  --surface: {{ theme.colors.surface }};
+  --surface-raised: {{ theme.colors.surfaceRaised }};
+
+  /* ── Text ── */
+  --ink: {{ theme.colors.ink }};
+  --faded: {{ theme.colors.faded }};
+  --muted: {{ theme.colors.muted }};
+  --placeholder: {{ theme.colors.placeholder }};
+
+  /* ── Borders ── */
+  --border: {{ theme.colors.border }};
+  --border-md: {{ theme.colors.borderMedium }};
+  --border-strong: {{ theme.colors.borderStrong }};
+
+  /* ── Brand ── */
+  --accent: {{ theme.colors.accent }};
+  --accent-hover: {{ theme.colors.accentHover }};
+  --accent-light: {{ theme.colors.accentLight }};
+  --navy: {{ theme.colors.navy }};
+
+  /* ── Semantic ── */
   --success: {{ theme.colors.success }};
   --success-light: {{ theme.colors.successLight }};
   --success-dark: {{ theme.colors.successDark }};
@@ -21,10 +34,22 @@
   --purple-light: {{ theme.colors.purpleLight }};
   --teal: {{ theme.colors.teal }};
   --pink: {{ theme.colors.pink }};
-  --sidebar-width: 250px;
-  --grad-mint: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
-  --grad-blue: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
-  --grad-yellow: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
-  --grad-pink: linear-gradient(135deg, #FCE7F3 0%, #FBCFE8 100%);
+
+  /* ── Layout ── */
+  --sidebar-width: 248px;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  /* ── Spacing (4px base) ── */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
 }
 </style>

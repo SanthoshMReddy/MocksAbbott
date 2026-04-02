@@ -6,60 +6,56 @@ permalink: /07-manual-review.html
 ---
 {% block headStyles %}
 <style>
-.review-layout { display: grid; grid-template-columns: 340px 1fr; gap: 24px; min-height: calc(100vh - 180px); }
+.review-layout { display: grid; grid-template-columns: 320px 1fr; gap: var(--sp-5); min-height: calc(100vh - 160px); }
 
 /* Left Panel - Case List */
-.case-list { background: var(--white); border-radius: 12px; border: 1px solid #E5E7EB; overflow: hidden; display: flex; flex-direction: column; }
-.case-list-header { padding: 16px 20px; border-bottom: 1px solid #E5E7EB; }
-.case-list-header h3 { font-size: 1rem; margin-bottom: 8px; }
+.case-list { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); overflow: hidden; display: flex; flex-direction: column; }
+.case-list-header { padding: var(--sp-4) var(--sp-5); border-bottom: 1px solid var(--border); }
+.case-list-header h3 { font-size: 0.9rem; margin-bottom: var(--sp-2); }
 .case-list-body { flex: 1; overflow-y: auto; }
 .case-item {
-    padding: 14px 20px; border-bottom: 1px solid #F3F4F6;
-    cursor: pointer; transition: background 0.1s;
+    padding: var(--sp-3) var(--sp-5); border-bottom: 1px solid var(--border);
+    cursor: pointer; transition: background 0.08s ease;
 }
-.case-item:hover { background: #F9FAFB; }
-.case-item.active { background: var(--blue-light); border-left: 3px solid var(--blue); }
-.case-item .case-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 2px; }
-.case-item .case-meta { font-size: 0.78rem; color: var(--text-secondary); }
-.case-item .case-reason { font-size: 0.78rem; color: var(--error); margin-top: 4px; }
+.case-item:hover { background: var(--canvas); }
+.case-item.active { background: var(--accent-light); border-left: 2px solid var(--accent); }
+.case-item .case-name { font-weight: 600; font-size: 0.85rem; margin-bottom: 1px; }
+.case-item .case-meta { font-size: 0.72rem; color: var(--muted); }
+.case-item .case-reason { font-size: 0.72rem; color: var(--error); margin-top: var(--sp-1); }
 
 /* Right Panel - Detail View */
-.case-detail { background: var(--white); border-radius: 12px; border: 1px solid #E5E7EB; padding: 28px; }
-.detail-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
-.detail-actions { display: flex; gap: 10px; }
-.btn-reject { background: var(--error); color: var(--white); }
+.case-detail { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); padding: var(--sp-6); }
+.detail-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--sp-6); flex-wrap: wrap; gap: var(--sp-3); }
+.detail-actions { display: flex; gap: var(--sp-2); }
+.btn-reject { background: var(--error); color: #fff; }
 .btn-reject:hover { background: #DC2626; }
 
-.doc-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
-.doc-panel {
-    border: 1px solid #E5E7EB; border-radius: 10px; overflow: hidden;
-}
+.doc-compare { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-5); margin-bottom: var(--sp-6); }
+.doc-panel { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
 .doc-panel-header {
-    background: #F9FAFB; padding: 10px 16px;
-    font-weight: 600; font-size: 0.82rem; color: var(--text-secondary);
-    text-transform: uppercase; letter-spacing: 0.03em;
-    display: flex; align-items: center; gap: 8px;
+    background: var(--canvas); padding: var(--sp-2) var(--sp-4);
+    font-weight: 600; font-size: 0.72rem; color: var(--faded);
+    text-transform: uppercase; letter-spacing: 0.04em;
+    display: flex; align-items: center; gap: var(--sp-2);
 }
 .doc-panel-body {
-    padding: 20px; min-height: 200px;
+    padding: var(--sp-5); min-height: 180px;
     display: flex; align-items: center; justify-content: center;
-    background: var(--pale-blue);
+    background: var(--canvas);
 }
-.doc-placeholder {
-    text-align: center; color: var(--text-secondary);
-}
-.doc-placeholder .material-icons-outlined { font-size: 48px; margin-bottom: 8px; opacity: 0.4; }
-.doc-placeholder p { font-size: 0.82rem; }
+.doc-placeholder { text-align: center; color: var(--muted); }
+.doc-placeholder .material-icons-outlined { font-size: 40px; margin-bottom: var(--sp-2); opacity: 0.3; }
+.doc-placeholder p { font-size: 0.78rem; }
 
-.entity-compare { margin-bottom: 24px; }
+.entity-compare { margin-bottom: var(--sp-6); }
 .entity-row {
-    display: grid; grid-template-columns: 160px 1fr 1fr 80px;
-    gap: 12px; padding: 10px 0; border-bottom: 1px solid #F3F4F6;
-    align-items: center; font-size: 0.88rem;
+    display: grid; grid-template-columns: 140px 1fr 1fr 64px;
+    gap: var(--sp-3); padding: var(--sp-2) 0; border-bottom: 1px solid var(--border);
+    align-items: center; font-size: 0.82rem;
 }
-.entity-row.header { font-weight: 600; font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; }
+.entity-row.header { font-weight: 600; font-size: 0.72rem; color: var(--faded); text-transform: uppercase; letter-spacing: 0.03em; }
 .match-icon { display: flex; align-items: center; justify-content: center; }
-.match-icon .material-icons-outlined { font-size: 20px; }
+.match-icon .material-icons-outlined { font-size: 18px; }
 .match-icon.pass .material-icons-outlined { color: var(--success); }
 .match-icon.fail .material-icons-outlined { color: var(--error); }
 .match-icon.warn .material-icons-outlined { color: var(--warning); }
@@ -67,7 +63,7 @@ permalink: /07-manual-review.html
 @media (max-width: 900px) {
     .review-layout { grid-template-columns: 1fr; }
     .doc-compare { grid-template-columns: 1fr; }
-    .entity-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .entity-row { grid-template-columns: 1fr 1fr; gap: var(--sp-2); }
 }
 </style>
 {% endblock %}
@@ -76,7 +72,7 @@ permalink: /07-manual-review.html
 <div class="content">
     <div class="page-header">
         <h1>Manual Review Queue</h1>
-        <span class="badge yellow" style="font-size:0.9rem;padding:6px 14px">12 cases pending</span>
+        <span class="badge yellow" style="font-size:0.82rem;padding:var(--sp-1) var(--sp-3)">12 cases pending</span>
     </div>
 
     <div class="review-layout">
@@ -86,7 +82,7 @@ permalink: /07-manual-review.html
                 <h3>Pending Cases</h3>
                 <div class="content-search" style="margin-bottom:0">
                     <span class="material-icons-outlined">search</span>
-                    <input type="text" placeholder="Search cases..." style="font-size:0.82rem">
+                    <input type="text" placeholder="Search cases..." style="font-size:0.78rem">
                 </div>
             </div>
             <div class="case-list-body">
@@ -138,7 +134,7 @@ permalink: /07-manual-review.html
             <div class="detail-header">
                 <div>
                     <h2>Jain Medical Agencies</h2>
-                    <p style="color:var(--text-secondary);font-size:0.85rem;margin-top:4px">
+                    <p style="color:var(--faded);font-size:0.78rem;margin-top:var(--sp-1)">
                         GSTIN: 23AABCJ5432K1ZT &middot; Bhopal, Madhya Pradesh &middot; Submitted 25 Mar 2026
                     </p>
                 </div>
@@ -149,38 +145,38 @@ permalink: /07-manual-review.html
             </div>
 
             <!-- Document Comparison -->
-            <h3 style="margin-bottom:14px">Document Comparison</h3>
+            <h3 style="margin-bottom:var(--sp-3)">Document Comparison</h3>
             <div class="doc-compare">
                 <div class="doc-panel">
                     <div class="doc-panel-header">
-                        <span class="material-icons-outlined" style="font-size:16px">description</span>
+                        <span class="material-icons-outlined" style="font-size:14px">description</span>
                         GSTIN Certificate
                     </div>
                     <div class="doc-panel-body">
                         <div class="doc-placeholder">
                             <span class="material-icons-outlined">article</span>
                             <p>GSTIN Certificate Image</p>
-                            <p style="font-size:0.75rem;margin-top:4px">Entity: "Jain Medical Agencies Pvt Ltd"</p>
+                            <p style="font-size:0.68rem;margin-top:var(--sp-1)">Entity: "Jain Medical Agencies Pvt Ltd"</p>
                         </div>
                     </div>
                 </div>
                 <div class="doc-panel">
                     <div class="doc-panel-header">
-                        <span class="material-icons-outlined" style="font-size:16px">account_balance</span>
+                        <span class="material-icons-outlined" style="font-size:14px">account_balance</span>
                         Cancelled Cheque
                     </div>
                     <div class="doc-panel-body">
                         <div class="doc-placeholder">
                             <span class="material-icons-outlined">account_balance</span>
                             <p>Cancelled Cheque Image</p>
-                            <p style="font-size:0.75rem;margin-top:4px">Account: "Jain Medicals"</p>
+                            <p style="font-size:0.68rem;margin-top:var(--sp-1)">Account: "Jain Medicals"</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Entity Name Comparison -->
-            <h3 style="margin-bottom:14px">Entity Name Verification</h3>
+            <h3 style="margin-bottom:var(--sp-3)">Entity Name Verification</h3>
             <div class="entity-compare">
                 <div class="entity-row header">
                     <div>Field</div>
@@ -189,35 +185,35 @@ permalink: /07-manual-review.html
                     <div>Match</div>
                 </div>
                 <div class="entity-row">
-                    <div style="font-weight:500;color:var(--text-secondary)">Legal Name</div>
+                    <div style="font-weight:500;color:var(--faded)">Legal Name</div>
                     <div>Jain Medical Agencies Pvt Ltd</div>
                     <div>Jain Medicals</div>
                     <div class="match-icon warn"><span class="material-icons-outlined">warning</span></div>
                 </div>
                 <div class="entity-row">
-                    <div style="font-weight:500;color:var(--text-secondary)">PAN</div>
+                    <div style="font-weight:500;color:var(--faded)">PAN</div>
                     <div>AABCJ5432K</div>
                     <div>AABCJ5432K</div>
                     <div class="match-icon pass"><span class="material-icons-outlined">check_circle</span></div>
                 </div>
                 <div class="entity-row">
-                    <div style="font-weight:500;color:var(--text-secondary)">Address</div>
+                    <div style="font-weight:500;color:var(--faded)">Address</div>
                     <div>14, MG Road, Bhopal</div>
                     <div>14, M.G. Road, Bhopal</div>
                     <div class="match-icon pass"><span class="material-icons-outlined">check_circle</span></div>
                 </div>
                 <div class="entity-row">
-                    <div style="font-weight:500;color:var(--text-secondary)">Match Score</div>
-                    <div colspan="2" style="color:var(--warning);font-weight:600">72% -- Below 85% auto-approve threshold</div>
+                    <div style="font-weight:500;color:var(--faded)">Match Score</div>
+                    <div style="color:var(--warning);font-weight:600">72% -- Below 85% auto-approve threshold</div>
                     <div></div>
                     <div class="match-icon warn"><span class="material-icons-outlined">warning</span></div>
                 </div>
             </div>
 
             <!-- Notes -->
-            <div style="margin-top:20px">
-                <h4 style="margin-bottom:8px">Review Notes</h4>
-                <textarea style="width:100%;padding:12px;border:1px solid var(--grey);border-radius:8px;font-family:'Inter',sans-serif;font-size:0.88rem;resize:vertical;min-height:80px" placeholder="Add notes for this review decision..."></textarea>
+            <div>
+                <h4 style="margin-bottom:var(--sp-2)">Review Notes</h4>
+                <textarea style="width:100%;padding:var(--sp-3);border:1px solid var(--border);border-radius:var(--radius-md);font-family:'Inter',sans-serif;font-size:0.82rem;resize:vertical;min-height:72px;color:var(--ink);background:var(--canvas)" placeholder="Add notes for this review decision..."></textarea>
             </div>
         </div>
     </div>

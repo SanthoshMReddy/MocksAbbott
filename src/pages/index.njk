@@ -7,11 +7,11 @@ permalink: /index.html
 ---
 {% block headStyles %}
 <style>
-body { background: #FAFAFA; display: block; min-height: auto; }
+body { background: var(--canvas); display: block; min-height: auto; }
 .main { margin-left: 0; min-height: auto; }
 
 .hero {
-    background: var(--dark-blue);
+    background: var(--navy);
     padding: 64px 32px 56px;
     text-align: center;
 }
@@ -20,7 +20,7 @@ body { background: #FAFAFA; display: block; min-height: auto; }
     font-family: 'Kanit', sans-serif;
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--blue);
+    color: var(--accent);
     margin-bottom: 12px;
 }
 .hero-description {
@@ -54,48 +54,47 @@ body { background: #FAFAFA; display: block; min-height: auto; }
     gap: 24px;
 }
 .screen-card {
-    background: var(--white);
-    border: 1px solid #F3F4F6;
-    border-radius: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
     padding: 28px 24px 24px;
     display: flex; flex-direction: column;
-    transition: all 0.2s;
+    transition: all 0.15s ease;
     text-decoration: none;
-    color: var(--text-primary);
+    color: var(--ink);
     position: relative; overflow: hidden;
 }
 .screen-card:hover {
-    border-color: var(--blue);
-    box-shadow: 0 8px 24px rgba(21,155,215,0.1);
-    transform: translateY(-2px);
+    border-color: var(--accent);
+    transform: translateY(-1px);
     text-decoration: none;
 }
 .card-icon-wrap {
     width: 48px; height: 48px;
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     display: flex; align-items: center; justify-content: center;
     margin-bottom: 16px;
 }
 .card-icon-wrap .material-icons-outlined { font-size: 24px; color: #fff; }
-.card-icon-wrap.blue { background: var(--blue); }
+.card-icon-wrap.blue { background: var(--accent); }
 .card-icon-wrap.purple { background: var(--purple); }
 .card-icon-wrap.green { background: var(--success); }
-.card-icon-wrap.dark { background: var(--dark-blue); }
+.card-icon-wrap.dark { background: var(--navy); }
 .card-icon-wrap.teal { background: var(--teal); }
 .card-icon-wrap.warning { background: var(--warning); }
 .card-icon-wrap.pink { background: var(--pink); }
 .card-icon-wrap.error { background: var(--error); }
 .screen-card h3 { font-weight: 700; font-size: 1.05rem; margin-bottom: 8px; }
-.screen-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; flex: 1; }
+.screen-card p { font-size: 0.85rem; color: var(--faded); line-height: 1.5; flex: 1; }
 .screen-card .card-number {
     position: absolute; top: 16px; right: 18px;
     font-family: 'Kanit', sans-serif; font-weight: 800;
-    font-size: 2rem; color: rgba(0,0,0,0.04);
+    font-size: 2rem; color: rgba(15,23,41,0.04);
 }
 .footer {
     text-align: center; padding: 24px;
-    font-size: 0.8rem; color: var(--text-secondary);
-    border-top: 1px solid #F3F4F6;
+    font-size: 0.8rem; color: var(--muted);
+    border-top: 1px solid var(--border);
 }
 
 @media (max-width: 900px) { .cards-grid { grid-template-columns: repeat(2, 1fr); } }
