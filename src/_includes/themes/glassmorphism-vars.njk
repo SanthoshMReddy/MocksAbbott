@@ -1,0 +1,61 @@
+<style>
+:root {
+  /* -- Surfaces (translucent for glass effect) -- */
+  --canvas: {{ theme.colors.canvas }};
+  --surface: rgba(255,255,255,0.55);
+  --surface-raised: rgba(255,255,255,0.75);
+
+  /* -- Glass-specific -- */
+  --bg-gradient: linear-gradient(135deg, #E0EEFF 0%, {{ theme.colors.canvas }} 40%, #FFF0F5 100%);
+  --glass-border: rgba(255,255,255,0.45);
+  --blur: 12px;
+  --blur-heavy: 20px;
+
+  /* -- Text -- */
+  --ink: {{ theme.colors.ink }};
+  --faded: {{ theme.colors.faded }};
+  --muted: {{ theme.colors.muted }};
+  --placeholder: {{ theme.colors.placeholder }};
+
+  /* -- Borders -- */
+  --border: rgba(255,255,255,0.35);
+  --border-md: rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.12);
+
+  /* -- Brand -- */
+  --accent: {{ theme.colors.accent }};
+  --accent-hover: {{ theme.colors.accentHover }};
+  --accent-light: rgba(21,155,215,0.12);
+  --navy: {{ theme.colors.navy }};
+
+  /* -- Semantic -- */
+  --success: {{ theme.colors.success }};
+  --success-light: rgba(16,185,129,0.12);
+  --success-dark: {{ theme.colors.successDark }};
+  --warning: {{ theme.colors.warning }};
+  --warning-light: rgba(245,158,11,0.12);
+  --error: {{ theme.colors.error }};
+  --error-light: rgba(239,68,68,0.10);
+  --purple: {{ theme.colors.purple }};
+  --purple-light: rgba(139,92,246,0.12);
+  --teal: {{ theme.colors.teal }};
+  --pink: {{ theme.colors.pink }};
+
+  /* -- Layout -- */
+  --sidebar-width: 252px;
+
+  /* -- Radius (rounder than clinical) -- */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* -- Spacing (same 4px base) -- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+}
+</style>

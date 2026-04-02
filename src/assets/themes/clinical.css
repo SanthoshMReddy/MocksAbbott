@@ -1,0 +1,117 @@
+/* ============================================================
+   CLINICAL PRECISION — Visual Theme
+   Borders-only depth · Cool palette · No shadows
+   ============================================================ */
+
+/* -- Typography -- */
+h1, h2, h3, h4 { font-family: 'Inter', sans-serif; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; }
+h1 { font-size: 1.5rem; }
+h2 { font-size: 1.25rem; }
+h3 { font-size: 1rem; }
+h4 { font-size: 0.875rem; }
+body { background: var(--canvas); color: var(--ink); }
+a { color: var(--accent); }
+
+/* -- Sidebar -- */
+.sidebar { background: var(--surface); border-right: 1px solid var(--border); }
+.sidebar-header { background: var(--navy); }
+.sidebar-brand { color: #fff; font-family: 'Kanit', sans-serif; font-weight: 700; font-size: 1.05rem; }
+.sidebar-brand small { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 0.65rem; opacity: 0.55; display: block; margin-top: 1px; }
+.nav-item { color: var(--faded); transition: all 0.12s ease; }
+.nav-item:hover { background: var(--canvas); color: var(--ink); text-decoration: none; }
+.nav-item.active { border-left-color: var(--accent); background: var(--accent-light); color: var(--accent); font-weight: 600; }
+.nav-badge { background: var(--warning); color: #fff; border-radius: var(--radius-sm); }
+.nav-divider { background: var(--border); }
+.sidebar-footer { border-top: 1px solid var(--border); }
+
+/* -- Topbar -- */
+.topbar { background: var(--surface); border-bottom: 1px solid var(--border); }
+.topbar-search { border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--canvas); }
+.topbar-search .material-icons-outlined { color: var(--muted); }
+.topbar-search input { color: var(--ink); }
+.topbar-search input::placeholder { color: var(--placeholder); }
+.topbar-icon { color: var(--faded); }
+.notif-dot { background: var(--error); border: 2px solid var(--surface); }
+.avatar { border-radius: 50%; background: var(--accent-light); color: var(--accent); }
+.topbar-name { color: var(--ink); }
+.topbar-role { color: var(--muted); }
+
+/* -- Buttons -- */
+.btn { border-radius: var(--radius-md); transition: all 0.12s ease; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-outline { background: transparent; border: 1px solid var(--border-md); color: var(--ink); }
+.btn-outline:hover { border-color: var(--border-strong); }
+.btn-success { background: var(--success); color: #fff; }
+.btn-success:hover { background: var(--success-dark); }
+
+/* -- Badges -- */
+.badge { border-radius: var(--radius-sm); }
+.badge.green { background: var(--success-light); color: var(--success-dark); }
+.badge.blue { background: #EFF6FF; color: #2563EB; }
+.badge.yellow { background: var(--warning-light); color: #B45309; }
+.badge.red { background: var(--error-light); color: #DC2626; }
+.badge.grey { background: #F1F5F9; color: var(--faded); }
+.badge.purple { background: var(--purple-light); color: #7C3AED; }
+
+/* -- Summary Cards (left-accent + tinted bg) -- */
+.summary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  border-left: 3px solid var(--border);
+}
+.summary-card.accent-green { border-left-color: var(--success); background: var(--success-light); }
+.summary-card.accent-blue { border-left-color: var(--accent); background: var(--accent-light); }
+.summary-card.accent-amber { border-left-color: var(--warning); background: var(--warning-light); }
+.summary-card.accent-rose { border-left-color: var(--error); background: var(--error-light); }
+.summary-card.accent-purple { border-left-color: var(--purple); background: var(--purple-light); }
+.summary-card.accent-teal { border-left-color: var(--teal); background: #F0FDFA; }
+.summary-card .card-icon { color: var(--muted); }
+.summary-card .card-label { color: var(--faded); }
+.summary-card .card-number { color: var(--ink); }
+.summary-card .card-sub { color: var(--muted); }
+
+/* -- Section Card -- */
+.section-card { background: var(--surface); border-radius: var(--radius-lg); border: 1px solid var(--border); }
+.section-title .material-icons-outlined { color: var(--accent); }
+
+/* -- Table -- */
+.data-table thead th { background: var(--canvas); color: var(--faded); border-bottom: 1px solid var(--border-md); }
+.data-table tbody td { border-bottom: 1px solid var(--border); color: var(--ink); }
+.data-table tbody tr { transition: background 0.08s ease; }
+.data-table tbody tr:hover { background: var(--canvas); }
+.data-table tbody tr:last-child td { border-bottom: none; }
+
+/* -- Pipeline Dots -- */
+.pipeline-dots .dot { border: 1.5px solid var(--border-md); }
+.pipeline-dots .dot.done { border: none; }
+.pipeline-dots .dot.done.p { background: var(--purple); }
+.pipeline-dots .dot.done.b { background: var(--accent); }
+.pipeline-dots .dot.done.g { background: var(--success); }
+.pipeline-dots .dot.active.p { border-color: var(--purple); color: var(--purple); }
+.pipeline-dots .dot.active.b { border-color: var(--accent); color: var(--accent); }
+.pipeline-dots .dot.active.g { border-color: var(--success); color: var(--success); }
+.pipeline-dots .dot-line { background: var(--border-md); }
+
+/* -- Filter Pills -- */
+.filter-pill { border: 1px solid var(--border); background: var(--surface); color: var(--faded); border-radius: var(--radius-sm); transition: all 0.12s ease; }
+.filter-pill:hover { border-color: var(--border-strong); color: var(--ink); }
+.filter-pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+/* -- Content Search -- */
+.content-search { border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); }
+.content-search .material-icons-outlined { color: var(--muted); }
+.content-search input { color: var(--ink); }
+.content-search input::placeholder { color: var(--placeholder); }
+
+/* -- Pagination -- */
+.pagination-info { color: var(--muted); }
+.page-btn { border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); color: var(--faded); transition: all 0.12s ease; }
+.page-btn:hover { border-color: var(--border-strong); color: var(--ink); }
+.page-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.page-ellipsis { color: var(--muted); }
+
+/* -- Hamburger & Overlay -- */
+.hamburger-btn { color: var(--ink); }
+.sidebar-overlay { background: rgba(15,23,41,0.3); }

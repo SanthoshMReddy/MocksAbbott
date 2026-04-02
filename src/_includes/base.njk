@@ -6,7 +6,8 @@
 <title>Abbott Engage — {{ title }}</title>
 <link href="{{ theme.typography.fontUrl }}" rel="stylesheet">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
-<link rel="stylesheet" href="/assets/styles.css?v={{ cacheBust }}">
+<link rel="stylesheet" href="/assets/base.css?v={{ cacheBust }}">
+<link rel="stylesheet" href="/assets/themes/{{ site.theme | default('clinical') }}.css?v={{ cacheBust }}">
 {% include "theme-css.njk" %}
 {% block headStyles %}{% endblock %}
 </head>
