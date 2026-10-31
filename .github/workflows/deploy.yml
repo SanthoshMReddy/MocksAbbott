@@ -1,3 +1,14 @@
+# op-vulcan-template: sd-deploy-build v1.1.0
+# sd-deploy single-project workflow (build). Installed by `sd-deploy init` as
+# .github/workflows/deploy.yml. Edit templates/delivery/ in opcommerce-skills.
+#
+# DROPLET_USER may be root or the non-root deploy user `sd-deploy target harden`
+# creates. That user owns the web roots and may run only setup-nginx-site.sh as
+# root (via sudo -n), which also hands the web root to it and reloads Nginx.
+# Paths listed in an optional .deploy-exclude file (rsync patterns, one per
+# line, relative to the build output) are neither uploaded nor deleted on the
+# server.
+
 name: Build & Deploy to DigitalOcean
 
 on:
@@ -81,22 +92,20 @@ jobs:
       - name: Setup Nginx site
         run: |
           ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} \
-            "/opt/deploy/setup-nginx-site.sh ${{ steps.config.outputs.full_domain }}"
+            'S=; [ "$(id -u)" = 0 ] || S="sudo -n"; $S /opt/deploy/setup-nginx-site.sh ${{ steps.config.outputs.full_domain }}'
 
       - name: Deploy build output
         run: |
-          rsync -avz --delete \
+          EXCLUDE_FROM=()
+          if [ -f .deploy-exclude ]; then EXCLUDE_FROM=(--exclude-from=.deploy-exclude); fi
+          # --no-owner/--no-group + --chmod: files end up owned by whoever
+          # deploys, readable by Nginx, whether that is root or the deploy user.
+          rsync -rlptvz --delete --no-owner --no-group \
+            --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r \
+            "${EXCLUDE_FROM[@]}" \
             -e "ssh -o StrictHostKeyChecking=no" \
             ./${{ steps.config.outputs.build_output }}/ \
             ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }}:${{ steps.config.outputs.web_root }}/
-
-      - name: Set permissions and reload
-        run: |
-          ssh ${{ secrets.DROPLET_USER }}@${{ secrets.DROPLET_HOST }} << 'EOF'
-            chown -R www-data:www-data /var/www/${{ steps.config.outputs.full_domain }}
-            chmod -R 755 /var/www/${{ steps.config.outputs.full_domain }}
-            nginx -t && systemctl reload nginx
-          EOF
 
       - name: Summary
         run: |
